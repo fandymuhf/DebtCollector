@@ -23,5 +23,6 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 		//Helo Fandy APA KABAR ?
 		//Dota jgn lupa ntar malem
+        //PICK INJOKER
 	}
 }
