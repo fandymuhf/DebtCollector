@@ -22,5 +22,6 @@ public class AndroidLauncher extends AndroidApplication {
 			Gdx.app.log("ERROR", "PERMISSION DENIED");
 		}
 		//Helo Fandy APA KABAR ?
+		//Dota jgn lupa ntar malem
 	}
 }
