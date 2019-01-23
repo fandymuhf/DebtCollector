@@ -3,7 +3,7 @@ android {
         config {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('C:/Users/fandy/.android/debug.keystore')
+            storeFile file('debug.keystore')
             storePassword 'android'
         }
     }
