@@ -21,6 +21,6 @@ public class AndroidLauncher extends AndroidApplication {
 		} else {
 			Gdx.app.log("ERROR", "PERMISSION DENIED");
 		}
-		//Helo Fandy
+		//Helo Fandy APA KABAR ?
 	}
 }
