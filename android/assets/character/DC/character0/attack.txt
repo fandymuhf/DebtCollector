@@ -1,0 +1,75 @@
+attack.png
+size: 1966, 1775
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Attack (1)-min
+  rotate: false
+  xy: 2, 2
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (2)-min
+  rotate: false
+  xy: 493, 2
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (3)-min
+  rotate: false
+  xy: 984, 2
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (4)-min
+  rotate: false
+  xy: 1475, 2
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (5)-min
+  rotate: false
+  xy: 2, 593
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (6)-min
+  rotate: false
+  xy: 493, 593
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (7)-min
+  rotate: false
+  xy: 984, 593
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (8)-min
+  rotate: false
+  xy: 1475, 593
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (9)-min
+  rotate: false
+  xy: 2, 1184
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1
+Attack (10)-min
+  rotate: false
+  xy: 493, 1184
+  size: 489, 589
+  orig: 489, 589
+  offset: 0, 0
+  index: -1

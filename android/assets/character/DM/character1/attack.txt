@@ -1,0 +1,75 @@
+attack.png
+size: 1628, 1898
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Slide (1)
+  rotate: false
+  xy: 1, 1
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (2)
+  rotate: false
+  xy: 543, 1
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (3)
+  rotate: false
+  xy: 1085, 1
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (4)
+  rotate: false
+  xy: 1, 475
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (5)
+  rotate: false
+  xy: 543, 475
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (6)
+  rotate: false
+  xy: 1085, 475
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (7)
+  rotate: false
+  xy: 1, 949
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (8)
+  rotate: false
+  xy: 543, 949
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (9)
+  rotate: false
+  xy: 1085, 949
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1
+Slide (10)
+  rotate: false
+  xy: 1, 1423
+  size: 542, 474
+  orig: 542, 474
+  offset: 0, 0
+  index: -1

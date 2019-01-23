@@ -1,0 +1,75 @@
+dead.png
+size: 1670, 2018
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Dead (1)
+  rotate: false
+  xy: 1, 1
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (2)
+  rotate: false
+  xy: 557, 1
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (3)
+  rotate: false
+  xy: 1113, 1
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (4)
+  rotate: false
+  xy: 1, 505
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (5)
+  rotate: false
+  xy: 557, 505
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (6)
+  rotate: false
+  xy: 1113, 505
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (7)
+  rotate: false
+  xy: 1, 1009
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (8)
+  rotate: false
+  xy: 557, 1009
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (9)
+  rotate: false
+  xy: 1113, 1009
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1
+Dead (10)
+  rotate: false
+  xy: 1, 1513
+  size: 556, 504
+  orig: 556, 504
+  offset: 0, 0
+  index: -1

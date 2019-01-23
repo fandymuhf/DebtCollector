@@ -1,0 +1,89 @@
+dead.png
+size: 3776, 1054
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Dead (1)-min
+  rotate: false
+  xy: 1, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (2)-min
+  rotate: false
+  xy: 630, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (3)-min
+  rotate: false
+  xy: 1259, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (4)-min
+  rotate: false
+  xy: 1888, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (5)-min
+  rotate: false
+  xy: 2517, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (6)-min
+  rotate: false
+  xy: 3146, 1
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (7)-min
+  rotate: false
+  xy: 1, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (8)-min
+  rotate: false
+  xy: 630, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (9)-min
+  rotate: false
+  xy: 1259, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (10)-min
+  rotate: false
+  xy: 1888, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (11)-min
+  rotate: false
+  xy: 2517, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1
+Dead (12)-min
+  rotate: false
+  xy: 3146, 527
+  size: 629, 526
+  orig: 629, 526
+  offset: 0, 0
+  index: -1

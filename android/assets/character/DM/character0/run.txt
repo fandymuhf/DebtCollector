@@ -1,0 +1,145 @@
+run.png
+size: 2914, 1364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Run (1)-min
+  rotate: false
+  xy: 1, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (2)-min
+  rotate: false
+  xy: 417, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (3)-min
+  rotate: false
+  xy: 833, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (4)-min
+  rotate: false
+  xy: 1249, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (5)-min
+  rotate: false
+  xy: 1665, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (6)-min
+  rotate: false
+  xy: 2081, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (7)-min
+  rotate: false
+  xy: 2497, 1
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (8)-min
+  rotate: false
+  xy: 1, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (9)-min
+  rotate: false
+  xy: 417, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (10)-min
+  rotate: false
+  xy: 833, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (11)-min
+  rotate: false
+  xy: 1249, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (12)-min
+  rotate: false
+  xy: 1665, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (13)-min
+  rotate: false
+  xy: 2081, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (14)-min
+  rotate: false
+  xy: 2497, 455
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (15)-min
+  rotate: false
+  xy: 1, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (16)-min
+  rotate: false
+  xy: 417, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (17)-min
+  rotate: false
+  xy: 833, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (18)-min
+  rotate: false
+  xy: 1249, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (19)-min
+  rotate: false
+  xy: 1665, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
+Run (20)-min
+  rotate: false
+  xy: 2081, 909
+  size: 416, 454
+  orig: 416, 454
+  offset: 0, 0
+  index: -1
