@@ -102,6 +102,7 @@ public class GameplayScreen extends Listener implements Screen {
     public ModelInstance instanceBuilding;
     public ModelInstance instanceRoof;
     public ModelInstance[] instanceAsphalt = new ModelInstance[13];
+    public ModelInstance[] treeInstance = new ModelInstance[6];
     private TextureAttribute textureAttributeTiles;
     public Environment environment;
     private float x=10f;
@@ -916,7 +917,6 @@ public class GameplayScreen extends Listener implements Screen {
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
-        ModelInstance[] treeInstance = new ModelInstance[6];
         ModelInstance carInstance = new ModelInstance(car);
         ModelInstance warehouseInstance = new ModelInstance(warehouse);
         ModelInstance catInstance = new ModelInstance(cat);
@@ -1140,15 +1140,7 @@ public class GameplayScreen extends Listener implements Screen {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-        //Hide player with transparant
-        if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
-            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
-            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
-        }
-        else{
-            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
-            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
-        }
+
 
         timefps += Gdx.graphics. getDeltaTime();
         int updatesThisFrame = 0;
@@ -1160,8 +1152,22 @@ public class GameplayScreen extends Listener implements Screen {
 
         Gdx.app.log("GET xPlayer:", " "+xPlayer+"..tmp.z: "+tmp.z);
 
-        if (loading && assets.update())
+        if (loading && assets.update()) {
             doneLoading();
+            //Hide objek on player with transparant
+            if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
+                instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+                instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+            }
+            else{
+                instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
+                instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
+                for(int i=0,j=40;i<treeInstance.length;i++) {
+                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,0.5f));
+                    Gdx.app.log("GET index:", " "+i);
+                }
+            }
+        }
 
         if (readymulai == 0) {
             batch.begin();
