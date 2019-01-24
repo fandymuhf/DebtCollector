@@ -548,7 +548,7 @@ public class GameplayScreen extends Listener implements Screen {
                 new Material(TextureAttribute.createDiffuse(building),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         modelroof = modelBuilder.createBox(20f, 1, 20f,
-                new Material(TextureAttribute.createDiffuse(roof)),
+                new Material(TextureAttribute.createDiffuse(roof),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         //model aspal horizontal
         modelasphalt[0] = modelBuilder.createBox(100f, 2, 40f,
@@ -1141,8 +1141,13 @@ public class GameplayScreen extends Listener implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         //Hide player with transparant
-        if(tmp.z - 1 > 30){
-            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.5f));
+        if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+        }
+        else{
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
         }
 
         timefps += Gdx.graphics. getDeltaTime();
