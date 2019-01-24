@@ -545,7 +545,7 @@ public class GameplayScreen extends Listener implements Screen {
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         modelbuilding = modelBuilder.createBox(20f, 20f, 20f,
-                new Material(TextureAttribute.createDiffuse(building)),
+                new Material(TextureAttribute.createDiffuse(building),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         modelroof = modelBuilder.createBox(20f, 1, 20f,
                 new Material(TextureAttribute.createDiffuse(roof)),
@@ -1139,6 +1139,11 @@ public class GameplayScreen extends Listener implements Screen {
         //camController.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+        //Hide player with transparant
+        if(tmp.z - 1 > 30){
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.5f));
+        }
 
         timefps += Gdx.graphics. getDeltaTime();
         int updatesThisFrame = 0;
