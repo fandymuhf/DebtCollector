@@ -972,6 +972,7 @@ public class GameplayScreen extends Listener implements Screen {
             treeObject.get(i).setCollisionShape(treeShape);
             treeObject.get(i).setWorldTransform(instancesobjTree.get(i).transform);
             treeObject.get(i).setCollisionFlags(treeObject.get(i).getCollisionFlags() | btCollisionObject.CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
+            
         }
         for(int i=0,j=0;i<2;i++) {
             instancesobjCat.add(new ModelInstance(modelkakitangancat,j,0,-10));
