@@ -1140,6 +1140,16 @@ public class GameplayScreen extends Listener implements Screen {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+        //Hide objek on player with transparant
+        if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
+        }
+        else{
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
+
+        }
 
 
         timefps += Gdx.graphics. getDeltaTime();
@@ -1154,19 +1164,7 @@ public class GameplayScreen extends Listener implements Screen {
 
         if (loading && assets.update()) {
             doneLoading();
-            //Hide objek on player with transparant
-            if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
-                instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
-                instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
-            }
-            else{
-                instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
-                instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
-                for(int i=0,j=40;i<treeInstance.length;i++) {
-                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,0.5f));
-                    Gdx.app.log("GET index:", " "+i);
-                }
-            }
+
         }
 
         if (readymulai == 0) {
