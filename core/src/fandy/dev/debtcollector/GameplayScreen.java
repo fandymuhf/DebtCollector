@@ -1146,7 +1146,7 @@ public class GameplayScreen extends Listener implements Screen {
 
         //Hide objek on player with transparant
         //Gedung
-        if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
+        if(tmp.z - 1 > 30 && tmp.z - 1 < 50 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
             instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
             instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
         }
@@ -1158,7 +1158,7 @@ public class GameplayScreen extends Listener implements Screen {
         //Pohon
         if(LoadAll == true) {
             for(int i=0,j=40;i<treeInstance.length;i++) {
-                if (tmp.z - 1 > j+2.5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
+                if (tmp.z - 1 > j+2.5f && tmp.z - 1 < j+2.5f+5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
                     blendingAttribute.opacity = 1.00f;
                     treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
                     treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
