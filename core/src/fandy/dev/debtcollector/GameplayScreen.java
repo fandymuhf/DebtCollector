@@ -214,6 +214,7 @@ public class GameplayScreen extends Listener implements Screen {
     private ModelInstance[] instancegila;
     private float syncGerakFPS = 0;
     private float lovey = -15;
+    public boolean LoadAll =  false;
 
     private int readymulai=0;
     private int jmlPemain;
@@ -953,6 +954,8 @@ public class GameplayScreen extends Listener implements Screen {
         carInstance.transform.setToScaling(2,2,2);
         carInstance.transform.rotate(Vector3.Y,90);
         carInstance.transform.setTranslation(0,1,60);
+        blendingAttribute.opacity = 0.25f;
+        catInstance.materials.get(0).set(blendingAttribute);
         instances.add(warehouseInstance);
         instances.add(carInstance);
         ModelBuilder modelBuilder = new ModelBuilder();
@@ -972,7 +975,7 @@ public class GameplayScreen extends Listener implements Screen {
             treeObject.get(i).setCollisionShape(treeShape);
             treeObject.get(i).setWorldTransform(instancesobjTree.get(i).transform);
             treeObject.get(i).setCollisionFlags(treeObject.get(i).getCollisionFlags() | btCollisionObject.CollisionFlags.CF_CUSTOM_MATERIAL_CALLBACK);
-            
+
         }
         for(int i=0,j=0;i<2;i++) {
             instancesobjCat.add(new ModelInstance(modelkakitangancat,j,0,-10));
@@ -1142,6 +1145,7 @@ public class GameplayScreen extends Listener implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         //Hide objek on player with transparant
+        //Gedung
         if(tmp.z - 1 > 30 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
             instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
             instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
@@ -1150,6 +1154,18 @@ public class GameplayScreen extends Listener implements Screen {
             instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
             instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1f));
 
+        }
+        //Pohon
+        if(LoadAll == true) {
+            if (tmp.z - 1 > 42.5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
+                blendingAttribute.opacity = 0.25f;
+                treeInstance[0].materials.get(1).set(blendingAttribute);
+                treeInstance[0].materials.get(0).set(blendingAttribute);
+            } else {
+                blendingAttribute.opacity = 1.00f;
+                treeInstance[0].materials.get(1).set(blendingAttribute);
+                treeInstance[0].materials.get(0).set(blendingAttribute);
+            }
         }
 
 
@@ -1165,7 +1181,7 @@ public class GameplayScreen extends Listener implements Screen {
 
         if (loading && assets.update()) {
             doneLoading();
-
+            LoadAll = true;
         }
 
         if (readymulai == 0) {
