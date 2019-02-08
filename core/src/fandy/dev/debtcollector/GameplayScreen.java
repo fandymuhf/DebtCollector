@@ -1157,14 +1157,17 @@ public class GameplayScreen extends Listener implements Screen {
         }
         //Pohon
         if(LoadAll == true) {
-            if (tmp.z - 1 > 42.5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
-                blendingAttribute.opacity = 0.25f;
-                treeInstance[0].materials.get(1).set(blendingAttribute);
-                treeInstance[0].materials.get(0).set(blendingAttribute);
-            } else {
-                blendingAttribute.opacity = 1.00f;
-                treeInstance[0].materials.get(1).set(blendingAttribute);
-                treeInstance[0].materials.get(0).set(blendingAttribute);
+            for(int i=0,j=40;i<treeInstance.length;i++) {
+                if (tmp.z - 1 > j+2.5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
+                    blendingAttribute.opacity = 1.00f;
+                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
+                    treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
+                } else {
+                    blendingAttribute.opacity = 1.00f;
+                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,1.00f),blendingAttribute);
+                    treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1.00f),blendingAttribute);
+                }
+                j-=10;
             }
         }
 
