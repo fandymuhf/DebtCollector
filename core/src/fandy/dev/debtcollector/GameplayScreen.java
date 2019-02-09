@@ -169,6 +169,7 @@ public class GameplayScreen extends Listener implements Screen {
     public Array<ModelInstance> instancesobj = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
+    public ModelInstance catInstance;
     public boolean loading;
 
     //skills
@@ -920,7 +921,7 @@ public class GameplayScreen extends Listener implements Screen {
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
         ModelInstance warehouseInstance = new ModelInstance(warehouse);
-        ModelInstance catInstance = new ModelInstance(cat);
+        catInstance = new ModelInstance(cat);
         loveInstance = new ModelInstance(love);
         loveInstance2 = new ModelInstance(love2);
         ModelInstance[] HouseInstance = new ModelInstance[6];
@@ -954,8 +955,6 @@ public class GameplayScreen extends Listener implements Screen {
         carInstance.transform.setToScaling(2,2,2);
         carInstance.transform.rotate(Vector3.Y,90);
         carInstance.transform.setTranslation(0,1,60);
-        blendingAttribute.opacity = 0.25f;
-        catInstance.materials.get(0).set(blendingAttribute);
         instances.add(warehouseInstance);
         instances.add(carInstance);
         ModelBuilder modelBuilder = new ModelBuilder();
@@ -1146,6 +1145,7 @@ public class GameplayScreen extends Listener implements Screen {
 
         //Hide objek on player with transparant
         //Gedung
+        Gdx.app.log("Depth ", ""+instanceBuilding.transform.getTranslation(new Vector3()).z);
         if(tmp.z - 1 > 30 && tmp.z - 1 < 50 && tmp.x + 1 > 20 && tmp.x + 1 < 40){
             instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
             instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f));
@@ -1159,17 +1159,32 @@ public class GameplayScreen extends Listener implements Screen {
         if(LoadAll == true) {
             for(int i=0,j=40;i<treeInstance.length;i++) {
                 if (tmp.z - 1 > j+2.5f && tmp.z - 1 < j+2.5f+5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
-                    blendingAttribute.opacity = 1.00f;
                     treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
                     treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,0.25f),blendingAttribute);
                 } else {
-                    blendingAttribute.opacity = 1.00f;
                     treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1,1,1,1.00f),blendingAttribute);
                     treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1,1,1,1.00f),blendingAttribute);
                 }
                 j-=10;
             }
+
+            //Kucing
+            int cobas = 0;
+            for(int i=0,j=0;i<2;i++) {
+                if (tmp.z - 1 > j + 2.5f && tmp.z - 1 < j + 2.5f + 5f && tmp.x + 1 > -12.5 && tmp.x + 1 < -7.5) {
+                    catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f), blendingAttribute);
+                    
+                }
+                else {
+                    cobas++;
+                }
+                j-=15;
+            }
+            if(cobas == 2) {
+                catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1.00f), blendingAttribute);
+            }
         }
+
 
 
         timefps += Gdx.graphics. getDeltaTime();
