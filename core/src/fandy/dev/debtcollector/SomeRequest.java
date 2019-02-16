@@ -94,6 +94,7 @@ class DataHeroes{
     public float[] itemscurrentCD = new float[4];
     public int lvl;
     public int exp;
+    public int gold;
     public boolean alive = true;
     public float stunned = 0;
     public String iphero = "";

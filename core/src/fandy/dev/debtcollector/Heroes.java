@@ -20,6 +20,7 @@ public class Heroes {
     public float[] itemscurrentCD = new float[4];
     public int lvl;
     public int exp;
+    public int gold;
     public boolean alive = true;
     public float stunned = 0;
 
@@ -46,6 +47,7 @@ public class Heroes {
             }
             this.lvl = 1;
             this.exp = 0;
+            this.gold = 500;
             this.stunned = 0;
             this.alive = true;
         }
@@ -72,6 +74,7 @@ public class Heroes {
             }
             this.lvl = 1;
             this.exp = 0;
+            this.gold = 500;
             this.stunned = 0;
             this.alive = true;
         }
@@ -98,6 +101,7 @@ public class Heroes {
             }
             this.lvl = 1;
             this.exp = 0;
+            this.gold = 500;
             this.stunned = 0;
             this.alive = true;
         }
@@ -123,6 +127,7 @@ public class Heroes {
             }
             this.lvl = 1;
             this.exp = 0;
+            this.gold = 500;
             this.stunned = 0;
             this.alive = true;
         }

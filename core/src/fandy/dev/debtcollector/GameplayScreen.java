@@ -1132,6 +1132,7 @@ public class GameplayScreen extends Listener implements Screen {
         dataHeroes.currentMana = heroes[urside].currentMana;
         dataHeroes.damage = heroes[urside].damage;
         dataHeroes.exp = heroes[urside].exp;
+        dataHeroes.gold = heroes[urside].gold;
         //dataHeroes.itemsCD = heroes[urside].itemsCD;
         //dataHeroes.itemscurrentCD = heroes[urside].itemscurrentCD;
         //dataHeroes.itemsmanacost = heroes[urside].itemsmanacost;
@@ -1541,7 +1542,7 @@ public class GameplayScreen extends Listener implements Screen {
                 cam.update();
                 punch[0].play();
                 Timer timercar = new Timer();
-                
+
 
                 if(!taskketabrak) {
                     taskketabrak=true;
