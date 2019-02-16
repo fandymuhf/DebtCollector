@@ -170,6 +170,7 @@ public class GameplayScreen extends Listener implements Screen {
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
     public ModelInstance catInstance;
+    public ModelInstance coinInstance;
     public boolean loading;
 
     //skills
@@ -340,12 +341,22 @@ public class GameplayScreen extends Listener implements Screen {
             labelGold.setFontScale(fontScalex,fontScaley);
             labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
             stage.addActor(labelGold);
+
+            labelExp = new Label("Exp : " + heroes[yourIndexSide].exp,labelStyle2);
+            labelExp.setFontScale(fontScalex,fontScaley);
+            labelExp.setPosition(2430*Gdx.graphics.getWidth()/2880,1260*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelExp);
         }
         else{
             labelGold = new Label("Gold : " + heroes[jmlDC + yourIndexSide].gold,labelStyle2);
             labelGold.setFontScale(fontScalex,fontScaley);
             labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
             stage.addActor(labelGold);
+
+            labelExp = new Label("Exp : " + heroes[jmlDC + yourIndexSide].exp,labelStyle2);
+            labelExp.setFontScale(fontScalex,fontScaley);
+            labelExp.setPosition(2430*Gdx.graphics.getWidth()/2880,1260*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelExp);
         }
 
         labeltimeend.setPosition(1430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
@@ -641,6 +652,7 @@ public class GameplayScreen extends Listener implements Screen {
         assets.load("object/Warehouse/Warehouse.obj", Model.class);
         assets.load("object/House/casa.obj", Model.class);
         assets.load("object/Cat/cat.obj", Model.class);
+        assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -931,10 +943,12 @@ public class GameplayScreen extends Listener implements Screen {
         Model warehouse = assets.get("object/Warehouse/Warehouse.obj", Model.class);
         Model house = assets.get("object/House/casa.obj", Model.class);
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
+        Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
         ModelInstance warehouseInstance = new ModelInstance(warehouse);
+        coinInstance = new ModelInstance(coin);
         catInstance = new ModelInstance(cat);
         loveInstance = new ModelInstance(love);
         loveInstance2 = new ModelInstance(love2);
@@ -969,6 +983,9 @@ public class GameplayScreen extends Listener implements Screen {
         carInstance.transform.setToScaling(2,2,2);
         carInstance.transform.rotate(Vector3.Y,90);
         carInstance.transform.setTranslation(0,1,60);
+        coinInstance.transform.setToScaling(25,25,25);
+        coinInstance.transform.rotate(Vector3.X,90);
+        coinInstance.transform.setTranslation(0,7,-30);
         instances.add(warehouseInstance);
         instances.add(carInstance);
         ModelBuilder modelBuilder = new ModelBuilder();
@@ -999,6 +1016,7 @@ public class GameplayScreen extends Listener implements Screen {
         }
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
+        instances.add(coinInstance);
 
         loveInstance.transform.setToScaling(5,5,5);
         loveInstance.transform.rotate(Vector3.Y,270);

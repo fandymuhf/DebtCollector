@@ -721,6 +721,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                     heroes[realposisi].currentMana = dataHeroes.currentMana;
                     heroes[realposisi].damage = dataHeroes.damage;
                     heroes[realposisi].exp = dataHeroes.exp;
+                    heroes[realposisi].gold = dataHeroes.gold;
                     heroes[realposisi].itemsCD = dataHeroes.itemsCD;
                     heroes[realposisi].itemscurrentCD = dataHeroes.itemscurrentCD;
                     heroes[realposisi].itemsmanacost= dataHeroes.itemsmanacost;
