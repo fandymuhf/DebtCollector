@@ -232,7 +232,7 @@ public class GameplayScreen extends Listener implements Screen {
     //frameatas
     private Label.LabelStyle labelStyle2;
     private Label labeltimeend;
-    private int timerminutes=2;
+    private int timerminutes=0;
     private int timersecond=30;
     private Image[] charMiniHeroesDCimage;
     private Image[] charMiniHeroesDMimage;
@@ -259,6 +259,7 @@ public class GameplayScreen extends Listener implements Screen {
     private GlyphLayout[] glyphLayoutPlayerName;
     private Matrix4[] lm;
     private ShapeRenderer sr;
+    private boolean delayStart = false;
 
     //Health bar
     private NinePatchDrawable[] loadingBarBackground;
@@ -1067,7 +1068,13 @@ public class GameplayScreen extends Listener implements Screen {
         timepicker.schedule( new com.badlogic.gdx.utils.Timer.Task(){
                                @Override
                                public void run() {
-                                   if(timerminutes<=0){
+                                   if(timerminutes<=0 && timersecond<=0 && !delayStart){
+                                       delayStart = true;
+                                       timerminutes=2;
+                                       timersecond=30;
+
+                                   }
+                                   else if(timerminutes<=0 && delayStart){
                                        timerminutes=0;
                                        timersecond=0;
                                        timepicker.stop();
@@ -1173,7 +1180,7 @@ public class GameplayScreen extends Listener implements Screen {
             for(int i=0,j=0;i<2;i++) {
                 if (tmp.z - 1 > j + 2.5f && tmp.z - 1 < j + 2.5f + 5f && tmp.x + 1 > -12.5 && tmp.x + 1 < -7.5) {
                     catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f), blendingAttribute);
-                    
+
                 }
                 else {
                     cobas++;
@@ -1446,7 +1453,8 @@ public class GameplayScreen extends Listener implements Screen {
         }
 
         //instancePlayer.transform.setTranslation(tmp.z,5f,tmp.x);
-        if (!collision && !ketabrakcar) {
+
+        if (!collision && !ketabrakcar && (delayStart || yourSide == 1) ) {
             xPlayer = tmp.x;
             tmp.x = tmp.x + (touchpad.getKnobPercentX() / 4)*syncGerakFPS;
             zPlayer = tmp.z;
@@ -1503,7 +1511,7 @@ public class GameplayScreen extends Listener implements Screen {
 
 
         } else {
-            if (ketabrakcar) {
+            if (ketabrakcar && (delayStart || yourSide == 1)) {
                 tmp.x = tmp.x + (((tmp.x - posCarZ.get(0)) * 1.03f) - (tmp.x - posCarZ.get(0)));
                 tmp.z = tmp.z + (((tmp.z - posCarX.get(0)) * 1.03f) - (tmp.z - posCarX.get(0)));
                 if (tmp.x > posCarZ.get(0)) {
@@ -1543,10 +1551,12 @@ public class GameplayScreen extends Listener implements Screen {
                             , 0.4f);
                 }
             } else {
-                if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
-                if (tmp.z > positionBuilding.x) tmp.z = tmp.z  + 0.2f;
-                if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
-                if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
+                if(delayStart || yourSide == 1) {
+                    if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
+                    if (tmp.z > positionBuilding.x) tmp.z = tmp.z + 0.2f;
+                    if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
+                    if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
+                }
             }
 
             if (yourSide == 0)
