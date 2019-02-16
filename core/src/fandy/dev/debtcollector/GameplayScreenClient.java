@@ -244,6 +244,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     private BitmapFont[] playerFontName;
     private GlyphLayout[] glyphLayoutPlayerName;
     private Matrix4[] lm;
+    private boolean delayStart = false;
 
     //Health bar
     private NinePatchDrawable[] loadingBarBackground;
@@ -744,8 +745,12 @@ public class GameplayScreenClient extends Listener implements Screen {
                 }
                 if(object instanceof TimerPickNow) {
                     TimerPickNow response = (TimerPickNow) object;
-                    if(response.timedetik<10)labeltimeend.setText(response.timemenit+":0"+response.timedetik);
-                    else labeltimeend.setText(response.timemenit+":"+response.timedetik);
+                    if (response.timedetik < 10)
+                        labeltimeend.setText(response.timemenit + ":0" + response.timedetik);
+                    else labeltimeend.setText(response.timemenit + ":" + response.timedetik);
+                    if (response.timemenit <= 0 && response.timedetik <= 0 && !delayStart) {
+                        delayStart = true;
+                    }
                 }
                 if(object instanceof ClientReadyChoose) {
                     ClientReadyChoose response = (ClientReadyChoose) object;
@@ -1209,7 +1214,7 @@ public class GameplayScreenClient extends Listener implements Screen {
             }
 
             //instancePlayer.transform.setTranslation(tmp.z,5f,tmp.x);
-            if (!collision && !ketabrakcar) {
+            if (!collision && !ketabrakcar && (delayStart || yourSide == 1)) {
                 xPlayer = tmp.x;
                 tmp.x = tmp.x + (touchpad.getKnobPercentX() / 4)*syncGerakFPS;
                 zPlayer = tmp.z;
@@ -1267,7 +1272,7 @@ public class GameplayScreenClient extends Listener implements Screen {
 
 
             } else {
-                if (ketabrakcar) {
+                if (ketabrakcar && (delayStart || yourSide == 1)) {
                     tmp.x = tmp.x + (((tmp.x - posCarZ.get(0)) * 1.03f) - (tmp.x - posCarZ.get(0)));
                     tmp.z = tmp.z + (((tmp.z - posCarX.get(0)) * 1.03f) - (tmp.z - posCarX.get(0)));
                     if (tmp.x > posCarZ.get(0)) {
@@ -1306,10 +1311,12 @@ public class GameplayScreenClient extends Listener implements Screen {
                                 , 0.4f);
                     }
                 }else {
-                    if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
-                    if (tmp.z > positionBuilding.x) tmp.z = tmp.z  + 0.2f;
-                    if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
-                    if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
+                    if (delayStart || yourSide == 1) {
+                        if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
+                        if (tmp.z > positionBuilding.x) tmp.z = tmp.z + 0.2f;
+                        if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
+                        if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
+                    }
                 }
 
                 Gdx.app.log("Heroes", "tabrakan" + tmp.z);
