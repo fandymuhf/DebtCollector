@@ -250,6 +250,8 @@ public class GameplayScreen extends Listener implements Screen {
 
     //Heroes var
     Heroes[] heroes;
+    public Label labelGold;
+    public Label labelExp;
 
     //playerName render
     private Model[] namePlayerModel;
@@ -333,7 +335,18 @@ public class GameplayScreen extends Listener implements Screen {
         labeltimeend = new Label(timerminutes+":"+timersecond,labelStyle2);
         labeltimeend.setFontScale(fontScalex,fontScaley);
 
-
+        if(yourSide == 0) {
+            labelGold = new Label("Gold : " + heroes[yourIndexSide].gold,labelStyle2);
+            labelGold.setFontScale(fontScalex,fontScaley);
+            labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelGold);
+        }
+        else{
+            labelGold = new Label("Gold : " + heroes[jmlDC + yourIndexSide].gold,labelStyle2);
+            labelGold.setFontScale(fontScalex,fontScaley);
+            labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelGold);
+        }
 
         labeltimeend.setPosition(1430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
 
@@ -1528,6 +1541,7 @@ public class GameplayScreen extends Listener implements Screen {
                 cam.update();
                 punch[0].play();
                 Timer timercar = new Timer();
+                
 
                 if(!taskketabrak) {
                     taskketabrak=true;
