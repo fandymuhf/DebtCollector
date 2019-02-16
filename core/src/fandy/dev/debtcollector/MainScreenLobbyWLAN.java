@@ -337,7 +337,7 @@ public class MainScreenLobbyWLAN extends Listener implements Screen {
 
                                 }
                                 }
-                , 0 ,1);
+                , 0 ,10);
             /*client.start();
             try {
                 client.connect(5000,"192.168.0.101",27960,27960);

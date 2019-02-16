@@ -244,7 +244,6 @@ public class GameplayScreenClient extends Listener implements Screen {
     private BitmapFont[] playerFontName;
     private GlyphLayout[] glyphLayoutPlayerName;
     private Matrix4[] lm;
-    private boolean delayStart = false;
 
     //Health bar
     private NinePatchDrawable[] loadingBarBackground;
@@ -596,7 +595,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/Protect_Van/Protect_Van.obj", Model.class);
         assets.load("object/Warehouse/Warehouse.obj", Model.class);
         assets.load("object/House/casa.obj", Model.class);
-        assets.load("object/Cat/cat.obj", Model.class);
+        assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -745,12 +744,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                 }
                 if(object instanceof TimerPickNow) {
                     TimerPickNow response = (TimerPickNow) object;
-                    if (response.timedetik < 10)
-                        labeltimeend.setText(response.timemenit + ":0" + response.timedetik);
-                    else labeltimeend.setText(response.timemenit + ":" + response.timedetik);
-                    if (response.timemenit <= 0 && response.timedetik <= 0 && !delayStart) {
-                        delayStart = true;
-                    }
+                    if(response.timedetik<10)labeltimeend.setText(response.timemenit+":0"+response.timedetik);
+                    else labeltimeend.setText(response.timemenit+":"+response.timedetik);
                 }
                 if(object instanceof ClientReadyChoose) {
                     ClientReadyChoose response = (ClientReadyChoose) object;
@@ -845,7 +840,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model car = assets.get("object/Protect_Van/Protect_Van.obj", Model.class);
         Model warehouse = assets.get("object/Warehouse/Warehouse.obj", Model.class);
         Model house = assets.get("object/House/casa.obj", Model.class);
-        Model cat = assets.get("object/Cat/cat.obj", Model.class);
+        Model cat = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance[] treeInstance = new ModelInstance[6];
@@ -1214,7 +1209,7 @@ public class GameplayScreenClient extends Listener implements Screen {
             }
 
             //instancePlayer.transform.setTranslation(tmp.z,5f,tmp.x);
-            if (!collision && !ketabrakcar && (delayStart || yourSide == 1)) {
+            if (!collision && !ketabrakcar) {
                 xPlayer = tmp.x;
                 tmp.x = tmp.x + (touchpad.getKnobPercentX() / 4)*syncGerakFPS;
                 zPlayer = tmp.z;
@@ -1272,7 +1267,7 @@ public class GameplayScreenClient extends Listener implements Screen {
 
 
             } else {
-                if (ketabrakcar && (delayStart || yourSide == 1)) {
+                if (ketabrakcar) {
                     tmp.x = tmp.x + (((tmp.x - posCarZ.get(0)) * 1.03f) - (tmp.x - posCarZ.get(0)));
                     tmp.z = tmp.z + (((tmp.z - posCarX.get(0)) * 1.03f) - (tmp.z - posCarX.get(0)));
                     if (tmp.x > posCarZ.get(0)) {
@@ -1311,12 +1306,10 @@ public class GameplayScreenClient extends Listener implements Screen {
                                 , 0.4f);
                     }
                 }else {
-                    if (delayStart || yourSide == 1) {
-                        if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
-                        if (tmp.z > positionBuilding.x) tmp.z = tmp.z + 0.2f;
-                        if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
-                        if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
-                    }
+                    if (tmp.z < positionBuilding.x) tmp.z = tmp.z - 0.2f;
+                    if (tmp.z > positionBuilding.x) tmp.z = tmp.z  + 0.2f;
+                    if (tmp.x < positionBuilding.z) tmp.x = tmp.x - 0.2f;
+                    if (tmp.x > positionBuilding.z) tmp.x = tmp.x + 0.2f;
                 }
 
                 Gdx.app.log("Heroes", "tabrakan" + tmp.z);
