@@ -205,6 +205,7 @@ public class GameplayScreen extends Listener implements Screen {
     private int myNomorHeroes;
     private Listener listener;
     private Vector3 position;
+    private ModelInstance coinMod;
     Matrix4 modelTransform = new Matrix4();
     private TextureAttribute[] attribute;
     private TextureAtlas[][] atlas;
@@ -236,7 +237,7 @@ public class GameplayScreen extends Listener implements Screen {
     private Label.LabelStyle labelStyle2;
     private Label labeltimeend;
     private int timerminutes=0;
-    private int timersecond=30;
+    private int timersecond=5;
     private Image[] charMiniHeroesDCimage;
     private Image[] charMiniHeroesDMimage;
     private Texture[] charMiniHeroesDCTexture;
@@ -1021,7 +1022,7 @@ public class GameplayScreen extends Listener implements Screen {
             catObject.get(i).setWorldTransform(instancesobjCat.get(i).transform);
         }
         for(int i=0;i<1;i++){
-            ModelInstance coinMod = new ModelInstance(modelcoin,0,0,-30);
+            coinMod = new ModelInstance(modelcoin,0,0,-30);
             coinObject.add(new btCollisionObject());
             coinObject.get(i).setCollisionShape(coinShape);
             coinObject.get(i).setWorldTransform(coinMod.transform);
@@ -1498,7 +1499,7 @@ public class GameplayScreen extends Listener implements Screen {
 
         //instancePlayer.transform.setTranslation(tmp.z,5f,tmp.x);
 
-        tabrakcoin = checkCollision(coinObject.get(0));
+        /*tabrakcoin = checkCollision(coinObject.get(0));
         if(tabrakcoin){
             Gdx.app.log("Heroes", "tabrakan" + tmp.z);
             if(yourSide == 0) {
@@ -1511,9 +1512,9 @@ public class GameplayScreen extends Listener implements Screen {
                 labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
 
             }
-        }
+        }*/
 
-        if (!collision && !ketabrakcar && !tabrakcoin && (delayStart || yourSide == 1) ) {
+        if (!collision && !ketabrakcar && (delayStart || yourSide == 1) ) {
             xPlayer = tmp.x;
             tmp.x = tmp.x + (touchpad.getKnobPercentX() / 4)*syncGerakFPS;
             zPlayer = tmp.z;
@@ -1567,6 +1568,22 @@ public class GameplayScreen extends Listener implements Screen {
                     collision = checkCollision(catObject.get(i));
                     positionBuilding = instancesobjCat.get(i).transform.getTranslation(new Vector3());
                 }
+            if (!collision) {
+                collision = checkCollision(coinObject.get(0));
+                positionBuilding = coinMod.transform.getTranslation(new Vector3());
+                if(collision) {
+                    if (yourSide == 0) {
+                        heroes[yourIndexSide].gold += 50;
+                        labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+
+                    } else {
+                        heroes[jmlDC + yourIndexSide].gold += 50;
+                        labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
+
+                    }
+                    //coinInstance.transform.setTranslation()
+                }
+            }
 
 
         } else {
