@@ -103,6 +103,7 @@ public class GameplayScreen extends Listener implements Screen {
     public ModelInstance instanceRoof;
     public ModelInstance[] instanceAsphalt = new ModelInstance[13];
     public ModelInstance[] treeInstance = new ModelInstance[6];
+    public ModelInstance[] coinInstance = new ModelInstance[5];
     private TextureAttribute textureAttributeTiles;
     public Environment environment;
     private float x=10f;
@@ -171,8 +172,8 @@ public class GameplayScreen extends Listener implements Screen {
     public Array<ModelInstance> instancesobj = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
+    public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
     public ModelInstance catInstance;
-    public ModelInstance coinInstance;
     public boolean loading;
 
     //skills
@@ -220,6 +221,7 @@ public class GameplayScreen extends Listener implements Screen {
     private float syncGerakFPS = 0;
     private float lovey = -15;
     public boolean LoadAll =  false;
+    public Model modelcoin;
 
     private int readymulai=0;
     private int jmlPemain;
@@ -951,7 +953,6 @@ public class GameplayScreen extends Listener implements Screen {
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
         ModelInstance warehouseInstance = new ModelInstance(warehouse);
-        coinInstance = new ModelInstance(coin);
         catInstance = new ModelInstance(cat);
         loveInstance = new ModelInstance(love);
         loveInstance2 = new ModelInstance(love2);
@@ -960,11 +961,15 @@ public class GameplayScreen extends Listener implements Screen {
             HouseInstance[i] = new ModelInstance(house);
         for(int i=0;i<treeInstance.length;i++)
             treeInstance[i] = new ModelInstance(tree);
+
         for(int i=0,j=40;i<treeInstance.length;i++) {
             treeInstance[i].transform.setToScaling(5, 5, 5);
             treeInstance[i].transform.setTranslation(j, -5, -40);
             j-=10;
         }
+        for(int i=0;i<coinInstance.length;i++)
+            coinInstance[i] = new ModelInstance(coin);
+
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
         warehouseInstance.transform.setTranslation(0,0,-150);
@@ -986,9 +991,6 @@ public class GameplayScreen extends Listener implements Screen {
         carInstance.transform.setToScaling(2,2,2);
         carInstance.transform.rotate(Vector3.Y,90);
         carInstance.transform.setTranslation(0,1,60);
-        coinInstance.transform.setToScaling(25,25,25);
-        coinInstance.transform.rotate(Vector3.X,90);
-        coinInstance.transform.setTranslation(0,7,-30);
         instances.add(warehouseInstance);
         instances.add(carInstance);
         ModelBuilder modelBuilder = new ModelBuilder();
@@ -998,7 +1000,7 @@ public class GameplayScreen extends Listener implements Screen {
         Model modelkakitangancat = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
-        Model modelcoin = modelBuilder.createBox(5f, 5f, 5f,
+        modelcoin = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
         btBoxShape treeShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
@@ -1021,15 +1023,20 @@ public class GameplayScreen extends Listener implements Screen {
             catObject.get(i).setCollisionShape(catShape);
             catObject.get(i).setWorldTransform(instancesobjCat.get(i).transform);
         }
-        for(int i=0;i<1;i++){
-            coinMod = new ModelInstance(modelcoin,0,0,-30);
+        for(int i=0;i<5;i++){
+            coinInstance[i].transform.setToScaling(10,10,10);
+            coinInstance[i].transform.rotate(Vector3.X,90);
+            coinInstance[i].transform.setTranslation(0,3,-30);
+
+            instancesobjCoin.add(new ModelInstance(modelcoin,0,0,-30));
             coinObject.add(new btCollisionObject());
             coinObject.get(i).setCollisionShape(coinShape);
-            coinObject.get(i).setWorldTransform(coinMod.transform);
+            coinObject.get(i).setWorldTransform(instancesobjCoin.get(i).transform);
+            randomCoin(coinInstance[i],modelcoin,3,i);
+            instances.add(coinInstance[i]);
         }
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
-        instances.add(coinInstance);
 
         loveInstance.transform.setToScaling(5,5,5);
         loveInstance.transform.rotate(Vector3.Y,270);
@@ -1569,19 +1576,22 @@ public class GameplayScreen extends Listener implements Screen {
                     positionBuilding = instancesobjCat.get(i).transform.getTranslation(new Vector3());
                 }
             if (!collision) {
-                collision = checkCollision(coinObject.get(0));
-                positionBuilding = coinMod.transform.getTranslation(new Vector3());
-                if(collision) {
-                    if (yourSide == 0) {
-                        heroes[yourIndexSide].gold += 50;
-                        labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+                for(int i=0;i<5;i++) {
+                    collision = checkCollision(coinObject.get(i));
+                    positionBuilding = instancesobjCoin.get(i).transform.getTranslation(new Vector3());
+                    if (collision) {
+                        if (yourSide == 0) {
+                            heroes[yourIndexSide].gold += 50;
+                            labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
 
-                    } else {
-                        heroes[jmlDC + yourIndexSide].gold += 50;
-                        labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
+                        } else {
+                            heroes[jmlDC + yourIndexSide].gold += 50;
+                            labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
 
+                        }
+                        randomCoin(coinInstance[i], modelcoin, 3,i);
+                        //coinInstance.transform.setTranslation()
                     }
-                    //coinInstance.transform.setTranslation()
                 }
             }
 
@@ -1773,6 +1783,16 @@ public class GameplayScreen extends Listener implements Screen {
             }
         }
     }
+    }
+
+    public void randomCoin(ModelInstance koinModelInstance,Model koinModel,int tinggiKoin,int intervals){
+        int x = (int)(Math.random() * 100) + 1 - 50;
+        int y = tinggiKoin;
+        int z = (int)(Math.random() * 100) + 1 - 50;
+
+        koinModelInstance.transform.setTranslation(x,y,z);
+        instancesobjCoin.set(intervals,new ModelInstance(koinModel,x,0,z));
+        coinObject.get(intervals).setWorldTransform(instancesobjCoin.get(intervals).transform);
     }
 
     @Override
