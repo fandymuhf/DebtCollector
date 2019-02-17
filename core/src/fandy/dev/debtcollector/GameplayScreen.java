@@ -161,7 +161,9 @@ public class GameplayScreen extends Listener implements Screen {
     Array<btCollisionObject> catObject = new Array<btCollisionObject>();
     Array<btCollisionObject> playerObject = new Array<btCollisionObject>();
     Array<btCollisionObject> carObject = new Array<btCollisionObject>();
+    Array<btCollisionObject> coinObject = new Array<btCollisionObject>();
     private boolean collision;
+    private boolean tabrakcoin = false;
     Vector3 positionBuilding;
 
     public AssetManager assets;
@@ -995,8 +997,12 @@ public class GameplayScreen extends Listener implements Screen {
         Model modelkakitangancat = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
+        Model modelcoin = modelBuilder.createBox(5f, 5f, 5f,
+                new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
+                Usage.Position | Usage.Normal);
         btBoxShape treeShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape catShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
+        btBoxShape coinShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         for(int i=0,j=40;i<treeInstance.length;i++) {
             instances.add(treeInstance[i]);
             instancesobjTree.add(new ModelInstance(modeltree,j,0,-40));
@@ -1013,6 +1019,12 @@ public class GameplayScreen extends Listener implements Screen {
             catObject.add(new btCollisionObject());
             catObject.get(i).setCollisionShape(catShape);
             catObject.get(i).setWorldTransform(instancesobjCat.get(i).transform);
+        }
+        for(int i=0;i<1;i++){
+            ModelInstance coinMod = new ModelInstance(modelcoin,0,0,-30);
+            coinObject.add(new btCollisionObject());
+            coinObject.get(i).setCollisionShape(coinShape);
+            coinObject.get(i).setWorldTransform(coinMod.transform);
         }
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
@@ -1486,7 +1498,22 @@ public class GameplayScreen extends Listener implements Screen {
 
         //instancePlayer.transform.setTranslation(tmp.z,5f,tmp.x);
 
-        if (!collision && !ketabrakcar && (delayStart || yourSide == 1) ) {
+        tabrakcoin = checkCollision(coinObject.get(0));
+        if(tabrakcoin){
+            Gdx.app.log("Heroes", "tabrakan" + tmp.z);
+            if(yourSide == 0) {
+                heroes[yourIndexSide].gold += 50;
+                labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+
+            }
+            else{
+                heroes[jmlDC + yourIndexSide].gold += 50;
+                labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
+
+            }
+        }
+
+        if (!collision && !ketabrakcar && !tabrakcoin && (delayStart || yourSide == 1) ) {
             xPlayer = tmp.x;
             tmp.x = tmp.x + (touchpad.getKnobPercentX() / 4)*syncGerakFPS;
             zPlayer = tmp.z;
