@@ -781,7 +781,13 @@ public class GameplayScreen extends Listener implements Screen {
 
                 if(object instanceof PosisiCoin){
                     for(int i=0;i<5;i++) {
-                        randomCoin(coinInstance[i], modelcoin, 3, i);
+
+                        PosisiCoin pc = new PosisiCoin();
+                        pc.x[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).x;
+                        pc.y[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).y;
+                        pc.z[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).z;
+                        server2.sendToAllTCP(pc);
+
                     }
                 }
                 if(object instanceof SomeRequest) {
@@ -1795,11 +1801,6 @@ public class GameplayScreen extends Listener implements Screen {
         int y = tinggiKoin;
         int z = (int)(Math.random() * 100) + 1 - 50;
 
-        PosisiCoin pc = new PosisiCoin();
-        pc.x[intervals] = x;
-        pc.y[intervals] = y;
-        pc.z[intervals] = z;
-        server2.sendToAllTCP(pc);
 
         koinModelInstance.transform.setTranslation(x,y,z);
         instancesobjCoin.set(intervals,new ModelInstance(koinModel,x,0,z));
