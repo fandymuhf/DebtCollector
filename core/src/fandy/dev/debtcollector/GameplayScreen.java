@@ -175,6 +175,7 @@ public class GameplayScreen extends Listener implements Screen {
     public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
     public ModelInstance catInstance;
     public boolean loading;
+    public PosisiCoin pc = new PosisiCoin();
 
     //skills
     Image skillsAttack;
@@ -780,7 +781,7 @@ public class GameplayScreen extends Listener implements Screen {
                 else realposisi=jmlDC+itempos;
 
                 if(object instanceof PosisiCoin){
-                    PosisiCoin pc = new PosisiCoin();
+
                     for(int i=0;i<5;i++) {
 
                         pc.x[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).x;
@@ -1801,6 +1802,11 @@ public class GameplayScreen extends Listener implements Screen {
         int y = tinggiKoin;
         int z = (int)(Math.random() * 100) + 1 - 50;
 
+        pc.x[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).x;
+        pc.y[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).y;
+        pc.z[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).z;
+
+        server2.sendToAllTCP(pc);
 
         koinModelInstance.transform.setTranslation(x,y,z);
         instancesobjCoin.set(intervals,new ModelInstance(koinModel,x,0,z));
