@@ -528,7 +528,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                 new Material(TextureAttribute.createDiffuse(building),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         modelroof = modelBuilder.createBox(20f, 1, 20f,
-                new Material(TextureAttribute.createDiffuse(roof)),
+                new Material(TextureAttribute.createDiffuse(roof),blendingAttribute),
                 Usage.Position | Usage.Normal | Usage.TextureCoordinates);
         //model aspal horizontal
         modelasphalt[0] = modelBuilder.createBox(100f, 2, 40f,
