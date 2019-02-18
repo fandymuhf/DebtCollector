@@ -779,6 +779,11 @@ public class GameplayScreen extends Listener implements Screen {
                 if(side==0)realposisi=itempos;
                 else realposisi=jmlDC+itempos;
 
+                if(object instanceof PosisiCoin){
+                    for(int i=0;i<5;i++) {
+                        randomCoin(coinInstance[i], modelcoin, 3, i);
+                    }
+                }
                 if(object instanceof SomeRequest) {
                     SomeRequest request = (SomeRequest)object;
                     if(request.text.equals("attack")){

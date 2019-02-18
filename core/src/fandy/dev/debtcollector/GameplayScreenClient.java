@@ -971,6 +971,9 @@ public class GameplayScreenClient extends Listener implements Screen {
             coinObject.get(i).setCollisionShape(coinShape);
             coinObject.get(i).setWorldTransform(instancesobjCoin.get(i).transform);
             instances.add(coinInstance[i]);
+
+            PosisiCoin pc = new PosisiCoin();
+            client2.sendTCP(pc);
         }
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
