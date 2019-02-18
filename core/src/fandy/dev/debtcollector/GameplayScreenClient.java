@@ -236,6 +236,8 @@ public class GameplayScreenClient extends Listener implements Screen {
 
     //Heroes var
     Heroes[] heroes;
+    public Label labelGold;
+    public Label labelExp;
 
     //playerName render
     private Model[] namePlayerModel;
@@ -595,7 +597,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/Protect_Van/Protect_Van.obj", Model.class);
         assets.load("object/Warehouse/Warehouse.obj", Model.class);
         assets.load("object/House/casa.obj", Model.class);
-        assets.load("object/MoneyBag/coin.obj", Model.class);
+        assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -675,6 +677,29 @@ public class GameplayScreenClient extends Listener implements Screen {
             loadingManaBarBackground[i] = new NinePatchDrawable(loadingManaBarBackgroundPatch);
             loadingBarBackground[i].getPatch().setColor(new Color(loadingBarBackground[i].getPatch().getColor().r,loadingBarBackground[i].getPatch().getColor().g,loadingBarBackground[i].getPatch().getColor().b,0.8f));
             loadingManaBarBackground[i].getPatch().setColor(new Color(loadingManaBarBackground[i].getPatch().getColor().r,loadingBarBackground[i].getPatch().getColor().g,loadingBarBackground[i].getPatch().getColor().b,0.8f));
+        }
+
+        if(yourSide == 0) {
+            labelGold = new Label("Gold : " + heroes[yourIndexSide].gold,labelStyle2);
+            labelGold.setFontScale(fontScalex,fontScaley);
+            labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelGold);
+
+            labelExp = new Label("Exp : " + heroes[yourIndexSide].exp,labelStyle2);
+            labelExp.setFontScale(fontScalex,fontScaley);
+            labelExp.setPosition(2430*Gdx.graphics.getWidth()/2880,1260*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelExp);
+        }
+        else{
+            labelGold = new Label("Gold : " + heroes[jmlDC + yourIndexSide].gold,labelStyle2);
+            labelGold.setFontScale(fontScalex,fontScaley);
+            labelGold.setPosition(2430*Gdx.graphics.getWidth()/2880,1360*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelGold);
+
+            labelExp = new Label("Exp : " + heroes[jmlDC + yourIndexSide].exp,labelStyle2);
+            labelExp.setFontScale(fontScalex,fontScaley);
+            labelExp.setPosition(2430*Gdx.graphics.getWidth()/2880,1260*Gdx.graphics.getHeight()/1440);
+            stage.addActor(labelExp);
         }
 
         tmp = new Vector3();
@@ -841,7 +866,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model car = assets.get("object/Protect_Van/Protect_Van.obj", Model.class);
         Model warehouse = assets.get("object/Warehouse/Warehouse.obj", Model.class);
         Model house = assets.get("object/House/casa.obj", Model.class);
-        Model cat = assets.get("object/MoneyBag/coin.obj", Model.class);
+        Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance[] treeInstance = new ModelInstance[6];
@@ -1102,6 +1127,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                 if(heroes[i].currentHealth>0)loadingBar[i].draw(batch, 10, 0, heroes[i].currentHealth/heroes[i].maxHealth * 80, glyphLayoutPlayerName[i].height);
                 loadingManaBarBackground[i].draw(batch, 10, 16, 80, glyphLayoutPlayerName[i].height);
                 if(heroes[i].currentMana>0)loadingManaBar[i].draw(batch, 10, 16, heroes[i].currentMana/heroes[i].maxMana * 80, glyphLayoutPlayerName[i].height);
+                labelGold.setText("Gold : "+heroes[i].gold);
                 batch.end();
                 lFbPlayerName[i].end();
             }
