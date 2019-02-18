@@ -167,6 +167,8 @@ public class GameplayScreenClient extends Listener implements Screen {
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
+    public ModelInstance catInstance;
+    public ModelInstance[] treeInstance = new ModelInstance[6];
     public boolean loading;
 
     //skills
@@ -197,6 +199,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     private int myNomorHeroes;
     private Timer timermatikanChoose;
     private float lovey = -15;
+    public boolean LoadAll =  false;
     public Model modelcoin;
 
     private TextureAttribute[] attribute;
@@ -736,10 +739,11 @@ public class GameplayScreenClient extends Listener implements Screen {
                 }
                 if(object instanceof PosisiCoin){
                     PosisiCoin pc = (PosisiCoin) object;
-                    for(int i=0;i<pc.x.length;i++) {
+                    for(int i=0;i<5;i++) {
                         int x = pc.x[i];
                         int y = pc.y[i];
                         int z = pc.z[i];
+
 
 
                         coinInstance[i].transform.setTranslation(x, y, z);
@@ -890,10 +894,10 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
-        ModelInstance[] treeInstance = new ModelInstance[6];
+        treeInstance = new ModelInstance[6];
         ModelInstance carInstance = new ModelInstance(car);
         ModelInstance warehouseInstance = new ModelInstance(warehouse);
-        ModelInstance catInstance = new ModelInstance(cat);
+        catInstance = new ModelInstance(cat);
         ModelInstance[] HouseInstance = new ModelInstance[6];
         loveInstance = new ModelInstance(love);
         loveInstance2 = new ModelInstance(love2);
@@ -1056,24 +1060,66 @@ public class GameplayScreenClient extends Listener implements Screen {
 
     @Override
     public void render(float delta) {
-        syncGerakFPS = Gdx.graphics.getDeltaTime()/0.016f;
-        elapsed += Gdx.graphics.getDeltaTime()*syncGerakFPS;
+        syncGerakFPS = Gdx.graphics.getDeltaTime() / 0.016f;
+        elapsed += Gdx.graphics.getDeltaTime() * syncGerakFPS;
         //camController.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
-        timefps += Gdx.graphics. getDeltaTime();
+        timefps += Gdx.graphics.getDeltaTime();
         int updatesThisFrame = 0;
         while (timefps >= tick && updatesThisFrame < maxUpdatesPerFrame) {
             updatesThisFrame++;
             timefps -= tick;
         }
 
+        //Hide objek on player with transparant
+        //Gedung
+        Gdx.app.log("Depth ", "" + instanceBuilding.transform.getTranslation(new Vector3()).z);
+        if (tmp.z - 1 > 30 && tmp.z - 1 < 50 && tmp.x + 1 > 20 && tmp.x + 1 < 40) {
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f));
+        } else {
+            instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1f));
+            instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1f));
+
+        }
+        //Pohon
+        if (LoadAll == true) {
+            for (int i = 0, j = 40; i < treeInstance.length; i++) {
+                if (tmp.z - 1 > j + 2.5f && tmp.z - 1 < j + 2.5f + 5f && tmp.x + 1 > -42.5 && tmp.x + 1 < -37.5) {
+                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f), blendingAttribute);
+                    treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f), blendingAttribute);
+                } else {
+                    treeInstance[i].materials.get(1).set(ColorAttribute.createDiffuse(1, 1, 1, 1.00f), blendingAttribute);
+                    treeInstance[i].materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1.00f), blendingAttribute);
+                }
+                j -= 10;
+            }
+
+            //Kucing
+            int cobas = 0;
+            for (int i = 0, j = 0; i < 2; i++) {
+                if (tmp.z - 1 > j + 2.5f && tmp.z - 1 < j + 2.5f + 5f && tmp.x + 1 > -12.5 && tmp.x + 1 < -7.5) {
+                    catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f), blendingAttribute);
+
+                } else {
+                    cobas++;
+                }
+                j -= 15;
+            }
+            if (cobas == 2) {
+                catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1.00f), blendingAttribute);
+            }
+        }
+
 
         //Gdx.app.log("GET DELTA", "Current delta = "+Gdx.graphics.getDeltaTime()+"..RAW: "+Gdx.graphics.getRawDeltaTime());
 
-        if (loading && assets.update())
+        if (loading && assets.update()){
             doneLoading();
+            LoadAll = true;
+        }
 
         if (readymulai == 0) {
             batch.begin();
