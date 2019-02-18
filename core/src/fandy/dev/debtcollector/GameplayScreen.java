@@ -1790,6 +1790,12 @@ public class GameplayScreen extends Listener implements Screen {
         int y = tinggiKoin;
         int z = (int)(Math.random() * 100) + 1 - 50;
 
+        PosisiCoin pc = new PosisiCoin();
+        pc.x[intervals] = x;
+        pc.y[intervals] = y;
+        pc.z[intervals] = z;
+        server2.sendToAllTCP(pc);
+
         koinModelInstance.transform.setTranslation(x,y,z);
         instancesobjCoin.set(intervals,new ModelInstance(koinModel,x,0,z));
         coinObject.get(intervals).setWorldTransform(instancesobjCoin.get(intervals).transform);
