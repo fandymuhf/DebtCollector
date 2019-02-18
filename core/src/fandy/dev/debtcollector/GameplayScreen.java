@@ -780,15 +780,15 @@ public class GameplayScreen extends Listener implements Screen {
                 else realposisi=jmlDC+itempos;
 
                 if(object instanceof PosisiCoin){
+                    PosisiCoin pc = new PosisiCoin();
                     for(int i=0;i<5;i++) {
 
-                        PosisiCoin pc = new PosisiCoin();
                         pc.x[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).x;
                         pc.y[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).y;
                         pc.z[i] = (int)coinInstance[i].transform.getTranslation(new Vector3()).z;
-                        server2.sendToAllTCP(pc);
 
                     }
+                    server2.sendToAllTCP(pc);
                 }
                 if(object instanceof SomeRequest) {
                     SomeRequest request = (SomeRequest)object;
