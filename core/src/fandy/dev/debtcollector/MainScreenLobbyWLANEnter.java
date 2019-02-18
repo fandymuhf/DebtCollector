@@ -175,6 +175,7 @@ public class MainScreenLobbyWLANEnter implements Screen {
         kryo.register(PosisiCar.class);
         kryo.register(DataHeroes.class);
         kryo.register(PosisiLove.class);
+        kryo.register(PosisiCoin.class);
         //kryo.register(java.util.ArrayList.class);
         //kryo.register(com.esotericsoftware.kryonet.Connection.class);
         kryo.register(com.esotericsoftware.kryonet.Server.class);

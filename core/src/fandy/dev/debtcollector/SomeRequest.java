@@ -6,6 +6,13 @@ public class SomeRequest {
     public String text;
 }
 
+class PosisiCoin{
+    public int[] x = new int[5];
+    public int[] y = new int[5];
+    public int[] z = new int[5];
+
+}
+
 class SomeResponse{
     public String text;
     public String yourIP;

@@ -98,6 +98,9 @@ public class GameplayScreenClient extends Listener implements Screen {
     public ModelInstance instanceBuilding;
     public ModelInstance instanceRoof;
     public ModelInstance[] instanceAsphalt = new ModelInstance[13];
+    public ModelInstance[] coinInstance = new ModelInstance[5];
+
+
     private TextureAttribute textureAttributeTiles;
     public Environment environment;
     private float x=10f;
@@ -154,6 +157,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     Array<btCollisionObject> catObject = new Array<btCollisionObject>();
     Array<btCollisionObject> playerObject = new Array<btCollisionObject>();
     Array<btCollisionObject> carObject = new Array<btCollisionObject>();
+    Array<btCollisionObject> coinObject = new Array<btCollisionObject>();
     private boolean collision;
     Vector3 positionBuilding;
 
@@ -162,6 +166,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     public Array<ModelInstance> instancesobj = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
+    public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
     public boolean loading;
 
     //skills
@@ -192,6 +197,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     private int myNomorHeroes;
     private Timer timermatikanChoose;
     private float lovey = -15;
+    public Model modelcoin;
 
     private TextureAttribute[] attribute;
     private TextureAtlas[][] atlas;
@@ -598,6 +604,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/Warehouse/Warehouse.obj", Model.class);
         assets.load("object/House/casa.obj", Model.class);
         assets.load("object/Cat/cat.obj", Model.class);
+        assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -726,6 +733,19 @@ public class GameplayScreenClient extends Listener implements Screen {
                     PosisiLove posisiLove = (PosisiLove) object;
                     loveInstance.transform.setTranslation(-20,posisiLove.loves,20);
                     loveInstance2.transform.setTranslation(-20,posisiLove.loves+3,20);
+                }
+                if(object instanceof PosisiCoin){
+                    PosisiCoin pc = (PosisiCoin) object;
+                    for(int i=0;i<pc.x.length;i++) {
+                        int x = pc.x[i];
+                        int y = pc.y[i];
+                        int z = pc.z[i];
+
+
+                        coinInstance[i].transform.setTranslation(x, y, z);
+                        instancesobjCoin.set(i, new ModelInstance(modelcoin, x, 0, z));
+                        coinObject.get(i).setWorldTransform(instancesobjCoin.get(i).transform);
+                    }
                 }
                 if(object instanceof DataHeroes) {
                     DataHeroes dataHeroes = (DataHeroes) object;
@@ -867,6 +887,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model warehouse = assets.get("object/Warehouse/Warehouse.obj", Model.class);
         Model house = assets.get("object/House/casa.obj", Model.class);
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
+        Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance[] treeInstance = new ModelInstance[6];
@@ -885,6 +906,9 @@ public class GameplayScreenClient extends Listener implements Screen {
             treeInstance[i].transform.setTranslation(j, -5, -40);
             j-=10;
         }
+        for(int i=0;i<coinInstance.length;i++)
+            coinInstance[i] = new ModelInstance(coin);
+
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
         warehouseInstance.transform.setTranslation(0,0,-150);
@@ -915,8 +939,12 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model modelkakitangancat = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
+        modelcoin = modelBuilder.createBox(5f, 5f, 5f,
+                new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
+                Usage.Position | Usage.Normal);
         btBoxShape treeShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape catShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
+        btBoxShape coinShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         for(int i=0,j=40;i<treeInstance.length;i++) {
             instances.add(treeInstance[i]);
             instancesobjTree.add(new ModelInstance(modeltree,j,0,-40));
@@ -932,6 +960,17 @@ public class GameplayScreenClient extends Listener implements Screen {
             catObject.add(new btCollisionObject());
             catObject.get(i).setCollisionShape(catShape);
             catObject.get(i).setWorldTransform(instancesobjCat.get(i).transform);
+        }
+        for(int i=0;i<5;i++){
+            coinInstance[i].transform.setToScaling(10,10,10);
+            coinInstance[i].transform.rotate(Vector3.X,90);
+            coinInstance[i].transform.setTranslation(0,3,-30);
+
+            instancesobjCoin.add(new ModelInstance(modelcoin,0,0,-30));
+            coinObject.add(new btCollisionObject());
+            coinObject.get(i).setCollisionShape(coinShape);
+            coinObject.get(i).setWorldTransform(instancesobjCoin.get(i).transform);
+            instances.add(coinInstance[i]);
         }
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
