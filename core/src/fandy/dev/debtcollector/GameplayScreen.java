@@ -1802,9 +1802,9 @@ public class GameplayScreen extends Listener implements Screen {
         int y = tinggiKoin;
         int z = (int)(Math.random() * 100) + 1 - 50;
 
-        pc.x[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).x;
-        pc.y[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).y;
-        pc.z[intervals] = (int)coinInstance[intervals].transform.getTranslation(new Vector3()).z;
+        pc.x[intervals] = x;
+        pc.y[intervals] = y;
+        pc.z[intervals] = z;
 
         server2.sendToAllTCP(pc);
 
