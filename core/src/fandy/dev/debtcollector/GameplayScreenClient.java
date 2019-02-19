@@ -729,6 +729,8 @@ public class GameplayScreenClient extends Listener implements Screen {
         carbelok.add(0);
         carspeed.add(0f);
 
+
+
         client2.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
@@ -749,6 +751,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                         coinInstance[i].transform.setTranslation(x, y, z);
                         instancesobjCoin.set(i, new ModelInstance(modelcoin, x, 0, z));
                         coinObject.get(i).setWorldTransform(instancesobjCoin.get(i).transform);
+
+
                     }
                 }
                 if(object instanceof DataHeroes) {
@@ -978,7 +982,9 @@ public class GameplayScreenClient extends Listener implements Screen {
 
             PosisiCoin pc = new PosisiCoin();
             client2.sendTCP(pc);
+
         }
+
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
 
@@ -991,6 +997,16 @@ public class GameplayScreenClient extends Listener implements Screen {
         instances.add(loveInstance);
         instances.add(loveInstance2);
         loading = false;
+
+        Timer timepicker2 = new Timer();
+        timepicker2.schedule( new com.badlogic.gdx.utils.Timer.Task() {
+            @Override
+            public void run() {
+                for(int i=0;i<5;i++){
+                    coinInstance[i].transform.rotate(Vector3.Z,10);
+                }
+            }
+        }, 0 ,0.1f);
     }
 
 
@@ -1024,6 +1040,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         blockSpeed = 5;
+
 
     }
 
@@ -1425,6 +1442,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                     cam.rotate(45, 0, 0, 0);
                     cam.update();
                     punch[0].play();
+
+
                     Timer timercar = new Timer();
                     if(!taskketabrak) {
                         taskketabrak=true;
