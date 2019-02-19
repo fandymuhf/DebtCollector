@@ -786,7 +786,9 @@ public class GameplayScreen extends Listener implements Screen {
                     randomCoin(coinInstance[i],modelcoin,3,i);
                     heroes[tc.yourSide].gold += 50;
 
-                    KirimDataHeroes(tc.yourSide, debtCollector.ip[tc.yourSide]);
+                    for(int j=0;j<jmlDC;j++)KirimDataHeroes(j, debtCollector.ip[j]);
+                    for(int j=0;j<jmlDM;j++)KirimDataHeroes(j+jmlDC, debtMaker.ip[j]);
+
 
                 }
                 if(object instanceof PosisiCoin){
