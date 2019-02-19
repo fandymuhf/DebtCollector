@@ -1138,6 +1138,16 @@ public class GameplayScreen extends Listener implements Screen {
     }
 
     public void AnimateTimePlaying(){
+        Timer timepicker2 = new Timer();
+        timepicker2.schedule( new com.badlogic.gdx.utils.Timer.Task() {
+               @Override
+               public void run() {
+                   for(int i=0;i<5;i++){
+                       coinInstance[i].transform.rotate(Vector3.Z,10);
+                   }
+               }
+        }, 0 ,0.1f);
+
         Timer timepicker = new Timer();
         timepicker.schedule( new com.badlogic.gdx.utils.Timer.Task(){
                                @Override
@@ -1165,6 +1175,7 @@ public class GameplayScreen extends Listener implements Screen {
                                        timersecond--;
                                        if(timersecond<10)labeltimeend.setText(timerminutes+":0"+timersecond);
                                        else labeltimeend.setText(timerminutes+":"+timersecond);
+
                                    }
                                    TimerPickNow timerPickNow = new TimerPickNow();
                                    timerPickNow.timedetik = timersecond;
