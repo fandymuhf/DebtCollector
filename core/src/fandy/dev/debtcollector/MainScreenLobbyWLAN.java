@@ -320,6 +320,8 @@ public class MainScreenLobbyWLAN extends Listener implements Screen {
                                         kryo.register(TimerPickNow.class);
                                         kryo.register(LobiRoomPenuh.class);
                                         kryo.register(PosisiCar.class);
+                                        kryo.register(PosisiCoin.class);
+                                        kryo.register(TabrakCoin.class);
                                         //kryo.register(java.util.ArrayList.class);
                                         //kryo.register(com.esotericsoftware.kryonet.Connection.class);
                                         kryo.register(com.esotericsoftware.kryonet.Server.class);

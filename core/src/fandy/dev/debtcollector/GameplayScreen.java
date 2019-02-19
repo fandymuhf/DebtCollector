@@ -780,6 +780,15 @@ public class GameplayScreen extends Listener implements Screen {
                 if(side==0)realposisi=itempos;
                 else realposisi=jmlDC+itempos;
 
+                if(object instanceof TabrakCoin) {
+                    TabrakCoin tc = (TabrakCoin)object;
+                    int i = tc.indexCoin;
+                    randomCoin(coinInstance[i],modelcoin,3,i);
+                    heroes[yourRealSide].gold += 50;
+
+                    KirimDataHeroes(yourRealSide, debtCollector.ip[yourRealSide]);
+
+                }
                 if(object instanceof PosisiCoin){
 
                     for(int i=0;i<5;i++) {
