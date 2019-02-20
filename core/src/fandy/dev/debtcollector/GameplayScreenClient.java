@@ -77,6 +77,7 @@ import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 import com.esotericsoftware.kryonet.Server;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
@@ -800,6 +801,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                     TimerPickNow response = (TimerPickNow) object;
                     if(response.timedetik<10)labeltimeend.setText(response.timemenit+":0"+response.timedetik);
                     else labeltimeend.setText(response.timemenit+":"+response.timedetik);
+
+
                 }
                 if(object instanceof ClientReadyChoose) {
                     ClientReadyChoose response = (ClientReadyChoose) object;
@@ -811,10 +814,13 @@ public class GameplayScreenClient extends Listener implements Screen {
                     hitungpemain=request.jmlrede;
                     if(hitungpemain==jmlPemain){
                         readymulai=1;
+
                     }
+
                 }
                 if(rede==1 && hitungpemain>=jmlPemain)
                     if(object instanceof PosisiHero) {
+
                         PosisiHero posisiHero = (PosisiHero) object;
                         /*String ipasliclient = ""+connection.getRemoteAddressTCP();
                         ipasliclient = ipasliclient.split(":")[0];
@@ -882,6 +888,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                     }
             }
         });
+
+
 
 
     }
@@ -998,15 +1006,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         instances.add(loveInstance2);
         loading = false;
 
-        Timer timepicker2 = new Timer();
-        timepicker2.schedule( new com.badlogic.gdx.utils.Timer.Task() {
-            @Override
-            public void run() {
-                for(int i=0;i<5;i++){
-                    coinInstance[i].transform.rotate(Vector3.Z,10);
-                }
-            }
-        }, 0 ,0.1f);
+
     }
 
 
@@ -1092,7 +1092,6 @@ public class GameplayScreenClient extends Listener implements Screen {
 
         //Hide objek on player with transparant
         //Gedung
-        Gdx.app.log("Depth ", "" + instanceBuilding.transform.getTranslation(new Vector3()).z);
         if (tmp.z - 1 > 30 && tmp.z - 1 < 50 && tmp.x + 1 > 20 && tmp.x + 1 < 40) {
             instanceBuilding.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f));
             instanceRoof.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 0.25f));
@@ -1136,7 +1135,20 @@ public class GameplayScreenClient extends Listener implements Screen {
         if (loading && assets.update()){
             doneLoading();
             LoadAll = true;
+            java.util.TimerTask task = new java.util.TimerTask() {
+                public void run() {
+                    Gdx.app.log("Depth ", "helo");
+                    for(int indek=0;indek<5;indek++){
+                        coinInstance[indek].transform.rotate(Vector3.Z,10);
+                    }
+                }
+            };
+            java.util.Timer timer = new java.util.Timer("Timer");
+
+            timer.schedule(task, new Date(),100L);
+
         }
+
 
         if (readymulai == 0) {
             batch.begin();
