@@ -1626,8 +1626,6 @@ public class GameplayScreen extends Listener implements Screen {
                         randomCoin(coinInstance[i], modelcoin, 3,i);
 
                         Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
-                        klik.setVolume(0.5f);
-                        klik.setLooping(false);
                         klik.play();
                         //coinInstance.transform.setTranslation()
                     }
