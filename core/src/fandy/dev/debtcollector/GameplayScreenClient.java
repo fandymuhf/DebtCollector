@@ -77,6 +77,7 @@ import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 import com.esotericsoftware.kryonet.Server;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.utils.Timer.schedule;
@@ -888,16 +889,7 @@ public class GameplayScreenClient extends Listener implements Screen {
             }
         });
 
-        Timer waktunya = new Timer();
-        waktunya.schedule( new com.badlogic.gdx.utils.Timer.Task() {
-            @Override
-            public void run() {
-                Gdx.app.log("Depth ", "helo");
-                for(int indek=0;indek<5;indek++){
-                    coinInstance[indek].transform.rotate(Vector3.Z,10);
-                }
-            }
-        }, 0 ,0.1f);
+
 
 
     }
@@ -1143,7 +1135,17 @@ public class GameplayScreenClient extends Listener implements Screen {
         if (loading && assets.update()){
             doneLoading();
             LoadAll = true;
+            java.util.TimerTask task = new java.util.TimerTask() {
+                public void run() {
+                    Gdx.app.log("Depth ", "helo");
+                    for(int indek=0;indek<5;indek++){
+                        coinInstance[indek].transform.rotate(Vector3.Z,10);
+                    }
+                }
+            };
+            java.util.Timer timer = new java.util.Timer("Timer");
 
+            timer.schedule(task, new Date(),100L);
 
         }
 
