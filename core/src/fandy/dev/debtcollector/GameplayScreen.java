@@ -663,7 +663,7 @@ public class GameplayScreen extends Listener implements Screen {
         assets.load("object/House/casa.obj", Model.class);
         assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/MoneyBag/coin.obj", Model.class);
-        assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.g3db", Model.class);
+        assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -977,7 +977,7 @@ public class GameplayScreen extends Listener implements Screen {
         Model house = assets.get("object/House/casa.obj", Model.class);
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
-        Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.g3db", Model.class);
+        Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
@@ -1073,15 +1073,16 @@ public class GameplayScreen extends Listener implements Screen {
         }
         //Soda
         for(int i=0;i<5;i++){
-            sodaInstance[i].transform.setToScaling(10,10,10);
             sodaInstance[i].transform.rotate(Vector3.X,90);
-            sodaInstance[i].transform.setTranslation(0,3,-30);
+            sodaInstance[i].transform.setTranslation(0,0,-30);
+            sodaInstance[i].transform.setToRotation(Vector3.X,270);
+            sodaInstance[i].transform.scale(0.35f,0.35f,0.35f);
 
             instancesobjSoda.add(new ModelInstance(modelsoda,0,0,-30));
             sodaObject.add(new btCollisionObject());
             sodaObject.get(i).setCollisionShape(sodaShape);
             sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
-            randomCoin2(sodaInstance[i],modelsoda,3,i);
+            randomCoin2(sodaInstance[i],modelsoda,0,i);
             instances.add(sodaInstance[i]);
         }
 
@@ -1171,6 +1172,7 @@ public class GameplayScreen extends Listener implements Screen {
                public void run() {
                    for(int i=0;i<5;i++){
                        coinInstance[i].transform.rotate(Vector3.Z,10);
+                       sodaInstance[i].transform.rotate(Vector3.Z,10);
                    }
                }
         }, 0 ,0.1f);
@@ -1636,6 +1638,7 @@ public class GameplayScreen extends Listener implements Screen {
                     collision = checkCollision(catObject.get(i));
                     positionBuilding = instancesobjCat.get(i).transform.getTranslation(new Vector3());
                 }
+            //Tabrakan Coin
             if (!collision) {
                 for(int i=0;i<5;i++) {
                     collision = checkCollision(coinObject.get(i));
@@ -1657,6 +1660,33 @@ public class GameplayScreen extends Listener implements Screen {
                         //coinInstance.transform.setTranslation()
                     }
                 }
+
+
+            }
+            //Tabrakan Soda
+            if (!collision) {
+                for(int i=0;i<5;i++) {
+                    collision = checkCollision(sodaObject.get(i));
+                    positionBuilding = instancesobjSoda.get(i).transform.getTranslation(new Vector3());
+                    if (collision) {
+                        if (yourSide == 0) {
+                            heroes[yourIndexSide].exp += 50;
+                            labelExp.setText("Exp : " + heroes[yourIndexSide].exp);
+
+                        } else {
+                            heroes[jmlDC + yourIndexSide].exp += 50;
+                            labelExp.setText("Exp : " + heroes[jmlDC + yourIndexSide].exp);
+
+                        }
+                        randomCoin2(sodaInstance[i], modelsoda, 0,i);
+
+                        Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
+                        klik.play();
+                        //coinInstance.transform.setTranslation()
+                    }
+                }
+
+
             }
 
 
