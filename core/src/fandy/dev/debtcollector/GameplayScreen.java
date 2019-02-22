@@ -104,6 +104,7 @@ public class GameplayScreen extends Listener implements Screen {
     public ModelInstance[] instanceAsphalt = new ModelInstance[13];
     public ModelInstance[] treeInstance = new ModelInstance[6];
     public ModelInstance[] coinInstance = new ModelInstance[5];
+    public ModelInstance[] sodaInstance = new ModelInstance[5];
     private TextureAttribute textureAttributeTiles;
     public Environment environment;
     private float x=10f;
@@ -163,6 +164,7 @@ public class GameplayScreen extends Listener implements Screen {
     Array<btCollisionObject> playerObject = new Array<btCollisionObject>();
     Array<btCollisionObject> carObject = new Array<btCollisionObject>();
     Array<btCollisionObject> coinObject = new Array<btCollisionObject>();
+    Array<btCollisionObject> sodaObject = new Array<btCollisionObject>();
     private boolean collision;
     private boolean tabrakcoin = false;
     Vector3 positionBuilding;
@@ -173,6 +175,7 @@ public class GameplayScreen extends Listener implements Screen {
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
+    public Array<ModelInstance> instancesobjSoda = new Array<ModelInstance>();
     public ModelInstance catInstance;
     public boolean loading;
     public PosisiCoin pc = new PosisiCoin();
@@ -223,6 +226,7 @@ public class GameplayScreen extends Listener implements Screen {
     private float lovey = -15;
     public boolean LoadAll =  false;
     public Model modelcoin;
+    public Model modelsoda;
 
     private int readymulai=0;
     private int jmlPemain;
@@ -659,6 +663,7 @@ public class GameplayScreen extends Listener implements Screen {
         assets.load("object/House/casa.obj", Model.class);
         assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/MoneyBag/coin.obj", Model.class);
+        assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.g3db", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -972,6 +977,7 @@ public class GameplayScreen extends Listener implements Screen {
         Model house = assets.get("object/House/casa.obj", Model.class);
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
+        Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.g3db", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
@@ -992,6 +998,8 @@ public class GameplayScreen extends Listener implements Screen {
         }
         for(int i=0;i<coinInstance.length;i++)
             coinInstance[i] = new ModelInstance(coin);
+        for(int i=0;i<sodaInstance.length;i++)
+            sodaInstance[i] = new ModelInstance(soda);
 
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
@@ -1026,9 +1034,14 @@ public class GameplayScreen extends Listener implements Screen {
         modelcoin = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
+        modelsoda = modelBuilder.createBox(5f, 5f, 5f,
+                new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
+                Usage.Position | Usage.Normal);
+
         btBoxShape treeShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape catShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape coinShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
+        btBoxShape sodaShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         for(int i=0,j=40;i<treeInstance.length;i++) {
             instances.add(treeInstance[i]);
             instancesobjTree.add(new ModelInstance(modeltree,j,0,-40));
@@ -1058,6 +1071,20 @@ public class GameplayScreen extends Listener implements Screen {
             randomCoin(coinInstance[i],modelcoin,3,i);
             instances.add(coinInstance[i]);
         }
+        //Soda
+        for(int i=0;i<5;i++){
+            sodaInstance[i].transform.setToScaling(10,10,10);
+            sodaInstance[i].transform.rotate(Vector3.X,90);
+            sodaInstance[i].transform.setTranslation(0,3,-30);
+
+            instancesobjSoda.add(new ModelInstance(modelsoda,0,0,-30));
+            sodaObject.add(new btCollisionObject());
+            sodaObject.get(i).setCollisionShape(sodaShape);
+            sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
+            randomCoin2(sodaInstance[i],modelsoda,3,i);
+            instances.add(sodaInstance[i]);
+        }
+
         for(int i=0;i<HouseInstance.length;i++) instances.add(HouseInstance[i]);
         instances.add(catInstance);
 
@@ -1836,6 +1863,22 @@ public class GameplayScreen extends Listener implements Screen {
         koinModelInstance.transform.setTranslation(x,y,z);
         instancesobjCoin.set(intervals,new ModelInstance(koinModel,x,0,z));
         coinObject.get(intervals).setWorldTransform(instancesobjCoin.get(intervals).transform);
+    }
+
+    public void randomCoin2(ModelInstance koinModelInstance,Model koinModel,int tinggiKoin,int intervals){
+        int x = (int)(Math.random() * 100) + 1 - 50;
+        int y = tinggiKoin;
+        int z = (int)(Math.random() * 100) + 1 - 50;
+
+        pc.x[intervals] = x;
+        pc.y[intervals] = y;
+        pc.z[intervals] = z;
+
+        //server2.sendToAllTCP(pc);
+
+        koinModelInstance.transform.setTranslation(x,y,z);
+        instancesobjSoda.set(intervals,new ModelInstance(koinModel,x,0,z));
+        sodaObject.get(intervals).setWorldTransform(instancesobjSoda.get(intervals).transform);
     }
 
     @Override
