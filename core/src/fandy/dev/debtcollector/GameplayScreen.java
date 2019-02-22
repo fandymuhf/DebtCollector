@@ -817,7 +817,7 @@ public class GameplayScreen extends Listener implements Screen {
                         pc2.z[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).z;
 
                     }
-                    server2.sendToAllTCP(pc);
+                    server2.sendToAllTCP(pc2);
                 }
                 if(object instanceof PosisiCoin){
 
