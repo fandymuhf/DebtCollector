@@ -789,7 +789,7 @@ public class GameplayScreen extends Listener implements Screen {
                 if(object instanceof TabrakSoda) {
                     TabrakSoda tc = (TabrakSoda) object;
                     int i = tc.indexCoin;
-                    randomCoin(sodaInstance[i],modelsoda,10,i);
+                    randomCoin2(sodaInstance[i],modelsoda,0,i);
                     heroes[tc.yourSide].exp += 50;
 
                     for(int j=0;j<jmlDC;j++)KirimDataHeroes(j, debtCollector.ip[j]);
