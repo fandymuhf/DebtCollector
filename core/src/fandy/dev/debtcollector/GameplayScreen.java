@@ -785,6 +785,17 @@ public class GameplayScreen extends Listener implements Screen {
                 if(side==0)realposisi=itempos;
                 else realposisi=jmlDC+itempos;
 
+                if(object instanceof TabrakSoda) {
+                    TabrakSoda tc = (TabrakSoda) object;
+                    int i = tc.indexCoin;
+                    randomCoin(sodaInstance[i],modelsoda,10,i);
+                    heroes[tc.yourSide].exp += 50;
+
+                    for(int j=0;j<jmlDC;j++)KirimDataHeroes(j, debtCollector.ip[j]);
+                    for(int j=0;j<jmlDM;j++)KirimDataHeroes(j+jmlDC, debtMaker.ip[j]);
+
+
+                }
                 if(object instanceof TabrakCoin) {
                     TabrakCoin tc = (TabrakCoin)object;
                     int i = tc.indexCoin;
@@ -795,6 +806,17 @@ public class GameplayScreen extends Listener implements Screen {
                     for(int j=0;j<jmlDM;j++)KirimDataHeroes(j+jmlDC, debtMaker.ip[j]);
 
 
+                }
+                if(object instanceof PosisiSoda){
+
+                    for(int i=0;i<5;i++) {
+
+                        pc.x[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).x;
+                        pc.y[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).y;
+                        pc.z[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).z;
+
+                    }
+                    server2.sendToAllTCP(pc);
                 }
                 if(object instanceof PosisiCoin){
 

@@ -6,12 +6,27 @@ public class SomeRequest {
     public String text;
 }
 
+class TabrakSoda{
+    public float x;
+    public float y;
+    public float z;
+    public int indexCoin;
+    public int yourSide;
+}
+
 class TabrakCoin{
     public float x;
     public float y;
     public float z;
     public int indexCoin;
     public int yourSide;
+}
+
+class PosisiSoda{
+    public int[] x = new int[5];
+    public int[] y = new int[5];
+    public int[] z = new int[5];
+
 }
 
 class PosisiCoin{

@@ -100,6 +100,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     public ModelInstance instanceRoof;
     public ModelInstance[] instanceAsphalt = new ModelInstance[13];
     public ModelInstance[] coinInstance = new ModelInstance[5];
+    public ModelInstance[] sodaInstance = new ModelInstance[5];
 
 
     private TextureAttribute textureAttributeTiles;
@@ -159,6 +160,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     Array<btCollisionObject> playerObject = new Array<btCollisionObject>();
     Array<btCollisionObject> carObject = new Array<btCollisionObject>();
     Array<btCollisionObject> coinObject = new Array<btCollisionObject>();
+    Array<btCollisionObject> sodaObject = new Array<btCollisionObject>();
     private boolean collision;
     Vector3 positionBuilding;
 
@@ -168,6 +170,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     public Array<ModelInstance> instancesobjTree = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCat = new Array<ModelInstance>();
     public Array<ModelInstance> instancesobjCoin = new Array<ModelInstance>();
+    public Array<ModelInstance> instancesobjSoda = new Array<ModelInstance>();
     public ModelInstance catInstance;
     public ModelInstance[] treeInstance = new ModelInstance[6];
     public boolean loading;
@@ -202,6 +205,7 @@ public class GameplayScreenClient extends Listener implements Screen {
     private float lovey = -15;
     public boolean LoadAll =  false;
     public Model modelcoin;
+    public Model modelsoda;
 
     private TextureAttribute[] attribute;
     private TextureAtlas[][] atlas;
@@ -609,6 +613,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/House/casa.obj", Model.class);
         assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/MoneyBag/coin.obj", Model.class);
+        assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -756,6 +761,23 @@ public class GameplayScreenClient extends Listener implements Screen {
 
                     }
                 }
+                if(object instanceof PosisiSoda){
+                    PosisiSoda pc = (PosisiSoda) object;
+                    for(int i=0;i<5;i++) {
+                        int x = pc.x[i];
+                        int y = pc.y[i];
+                        int z = pc.z[i];
+
+
+
+                        sodaInstance[i].transform.setTranslation(x, y, z);
+                        instancesobjSoda.set(i, new ModelInstance(modelsoda, x, 0, z));
+                        sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
+
+
+                    }
+                }
+
                 if(object instanceof DataHeroes) {
                     DataHeroes dataHeroes = (DataHeroes) object;
 
@@ -904,6 +926,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model house = assets.get("object/House/casa.obj", Model.class);
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
+        Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         treeInstance = new ModelInstance[6];
@@ -924,6 +947,8 @@ public class GameplayScreenClient extends Listener implements Screen {
         }
         for(int i=0;i<coinInstance.length;i++)
             coinInstance[i] = new ModelInstance(coin);
+        for(int i=0;i<sodaInstance.length;i++)
+            sodaInstance[i] = new ModelInstance(soda);
 
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
@@ -958,9 +983,13 @@ public class GameplayScreenClient extends Listener implements Screen {
         modelcoin = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
                 Usage.Position | Usage.Normal);
+        modelsoda = modelBuilder.createBox(5f, 5f, 5f,
+                new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
+                Usage.Position | Usage.Normal);
         btBoxShape treeShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape catShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         btBoxShape coinShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
+        btBoxShape sodaShape = new btBoxShape(new Vector3(2.5f, 2.5f, 2.5f));
         for(int i=0,j=40;i<treeInstance.length;i++) {
             instances.add(treeInstance[i]);
             instancesobjTree.add(new ModelInstance(modeltree,j,0,-40));
@@ -989,6 +1018,21 @@ public class GameplayScreenClient extends Listener implements Screen {
             instances.add(coinInstance[i]);
 
             PosisiCoin pc = new PosisiCoin();
+            client2.sendTCP(pc);
+
+        }
+        for(int i=0;i<5;i++){
+            sodaInstance[i].transform.setToScaling(10,10,10);
+            sodaInstance[i].transform.rotate(Vector3.X,90);
+            sodaInstance[i].transform.setTranslation(0,3,-30);
+
+            instancesobjSoda.add(new ModelInstance(modelsoda,0,0,-30));
+            sodaObject.add(new btCollisionObject());
+            sodaObject.get(i).setCollisionShape(sodaShape);
+            sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
+            instances.add(sodaInstance[i]);
+
+            PosisiSoda pc = new PosisiSoda();
             client2.sendTCP(pc);
 
         }
@@ -1140,12 +1184,14 @@ public class GameplayScreenClient extends Listener implements Screen {
                     Gdx.app.log("Depth ", "helo");
                     for(int indek=0;indek<5;indek++){
                         coinInstance[indek].transform.rotate(Vector3.Z,10);
+                        sodaInstance[indek].transform.rotate(Vector3.Z,10);
                     }
                 }
             };
             java.util.Timer timer = new java.util.Timer("Timer");
 
             timer.schedule(task, new Date(),100L);
+
 
         }
 
@@ -1245,6 +1291,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                 loadingManaBarBackground[i].draw(batch, 10, 16, 80, glyphLayoutPlayerName[i].height);
                 if(heroes[i].currentMana>0)loadingManaBar[i].draw(batch, 10, 16, heroes[i].currentMana/heroes[i].maxMana * 80, glyphLayoutPlayerName[i].height);
                 labelGold.setText("Gold : "+heroes[i].gold);
+                labelGold.setText("Exp : "+heroes[i].exp);
                 batch.end();
                 lFbPlayerName[i].end();
             }
@@ -1414,6 +1461,65 @@ public class GameplayScreenClient extends Listener implements Screen {
                         positionBuilding = instancesobjCoin.get(i).transform.getTranslation(new Vector3());
                         if (collision) {
                             TabrakCoin tc = new TabrakCoin();
+                            tc.indexCoin = i;
+                            tc.x = tmp.x;
+                            tc.y = tmp.x;
+                            tc.z = tmp.x;
+                            tc.yourSide = yourRealSide;
+                            client2.sendTCP(tc);
+                            Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
+                            klik.play();
+
+
+                            /*if (yourSide == 0) {
+                                heroes[yourIndexSide].gold += 50;
+                                labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+
+                            } else {
+                                heroes[jmlDC + yourIndexSide].gold += 50;
+                                labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
+
+                            }*/
+                            //randomCoin(coinInstance[i], modelcoin, 3,i);
+                            //coinInstance.transform.setTranslation()
+                        }
+                    }
+                }if (!collision) {
+                    for(int i=0;i<5;i++) {
+                        collision = checkCollision(coinObject.get(i));
+                        positionBuilding = instancesobjCoin.get(i).transform.getTranslation(new Vector3());
+                        if (collision) {
+                            TabrakCoin tc = new TabrakCoin();
+                            tc.indexCoin = i;
+                            tc.x = tmp.x;
+                            tc.y = tmp.x;
+                            tc.z = tmp.x;
+                            tc.yourSide = yourRealSide;
+                            client2.sendTCP(tc);
+                            Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
+                            klik.play();
+
+
+                            /*if (yourSide == 0) {
+                                heroes[yourIndexSide].gold += 50;
+                                labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+
+                            } else {
+                                heroes[jmlDC + yourIndexSide].gold += 50;
+                                labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
+
+                            }*/
+                            //randomCoin(coinInstance[i], modelcoin, 3,i);
+                            //coinInstance.transform.setTranslation()
+                        }
+                    }
+                }
+                if (!collision) {
+                    for(int i=0;i<5;i++) {
+                        collision = checkCollision(sodaObject.get(i));
+                        positionBuilding = instancesobjSoda.get(i).transform.getTranslation(new Vector3());
+                        if (collision) {
+                            TabrakSoda tc = new TabrakSoda();
                             tc.indexCoin = i;
                             tc.x = tmp.x;
                             tc.y = tmp.x;
