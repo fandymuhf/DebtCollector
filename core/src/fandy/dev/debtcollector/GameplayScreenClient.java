@@ -1291,7 +1291,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                 loadingManaBarBackground[i].draw(batch, 10, 16, 80, glyphLayoutPlayerName[i].height);
                 if(heroes[i].currentMana>0)loadingManaBar[i].draw(batch, 10, 16, heroes[i].currentMana/heroes[i].maxMana * 80, glyphLayoutPlayerName[i].height);
                 labelGold.setText("Gold : "+heroes[i].gold);
-                labelGold.setText("Exp : "+heroes[i].exp);
+                labelExp.setText("Exp : "+heroes[i].exp);
                 batch.end();
                 lFbPlayerName[i].end();
             }
