@@ -1422,7 +1422,6 @@ public class GameplayScreenClient extends Listener implements Screen {
                             client2.sendTCP(tc);
                             Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
                             klik.play();
-                            
                             /*if (yourSide == 0) {
                                 heroes[yourIndexSide].gold += 50;
                                 labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
