@@ -179,6 +179,7 @@ public class GameplayScreen extends Listener implements Screen {
     public ModelInstance catInstance;
     public boolean loading;
     public PosisiCoin pc = new PosisiCoin();
+    public PosisiSoda pc2 = new PosisiSoda();
 
     //skills
     Image skillsAttack;
@@ -811,9 +812,9 @@ public class GameplayScreen extends Listener implements Screen {
 
                     for(int i=0;i<5;i++) {
 
-                        pc.x[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).x;
-                        pc.y[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).y;
-                        pc.z[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).z;
+                        pc2.x[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).x;
+                        pc2.y[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).y;
+                        pc2.z[i] = (int)sodaInstance[i].transform.getTranslation(new Vector3()).z;
 
                     }
                     server2.sendToAllTCP(pc);
@@ -1596,7 +1597,7 @@ public class GameplayScreen extends Listener implements Screen {
             Gdx.app.log("Heroes", "tabrakan" + tmp.z);
             if(yourSide == 0) {
                 heroes[yourIndexSide].gold += 50;
-                labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
+                posi.setText("Gold : " + heroes[yourIndexSide].gold);
 
             }
             else{
@@ -1922,11 +1923,11 @@ public class GameplayScreen extends Listener implements Screen {
         int y = tinggiKoin;
         int z = (int)(Math.random() * 100) + 1 - 50;
 
-        pc.x[intervals] = x;
-        pc.y[intervals] = y;
-        pc.z[intervals] = z;
+        pc2.x[intervals] = x;
+        pc2.y[intervals] = y;
+        pc2.z[intervals] = z;
 
-        //server2.sendToAllTCP(pc);
+        server2.sendToAllTCP(pc2);
 
         koinModelInstance.transform.setTranslation(x,y,z);
         instancesobjSoda.set(intervals,new ModelInstance(koinModel,x,0,z));
