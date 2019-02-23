@@ -1192,7 +1192,18 @@ public class GameplayScreenClient extends Listener implements Screen {
             java.util.Timer timer = new java.util.Timer("Timer");
 
             timer.schedule(task, new Date(),100L);
+            java.util.TimerTask task2 = new java.util.TimerTask() {
+                public void run() {
+                    Gdx.app.log("Depth ", "helo");
+                    for(int indek=0;indek<5;indek++){
+                        //coinInstance[indek].transform.rotate(Vector3.Z,10);
+                        sodaInstance[indek].transform.rotate(Vector3.Z,10);
+                    }
+                }
+            };
+            java.util.Timer timer2 = new java.util.Timer("Timer");
 
+            timer2.schedule(task2, new Date(),100L);
 
         }
 
