@@ -1035,7 +1035,10 @@ public class GameplayScreenClient extends Listener implements Screen {
             sodaInstance[i].transform.rotate(Vector3.X,90);
             sodaInstance[i].transform.setTranslation(0,0,-30);
             sodaInstance[i].transform.setToRotation(Vector3.X,270);
-            sodaInstance[i].transform.scale(0.35f,0.35f,0.35f);
+            if(i%3 == 1)
+                sodaInstance[i].transform.scale(0.35f/4,0.35f/4,0.35f/4);
+            else
+                sodaInstance[i].transform.scale(0.35f,0.35f,0.35f);
 
             instancesobjSoda.add(new ModelInstance(modelsoda,0,0,-30));
             sodaObject.add(new btCollisionObject());
