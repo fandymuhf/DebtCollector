@@ -615,6 +615,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         assets.load("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
+        assets.load("object/Turkey/turkey.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -929,6 +930,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         Model pizza = assets.get("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
+        Model turkey = assets.get("object/Turkey/turkey.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         treeInstance = new ModelInstance[6];
@@ -950,8 +952,10 @@ public class GameplayScreenClient extends Listener implements Screen {
         for(int i=0;i<coinInstance.length;i++)
             coinInstance[i] = new ModelInstance(coin);
         for(int i=0;i<sodaInstance.length;i++){
-            if(i%2 == 0)
+            if(i%3 == 0)
                 sodaInstance[i] = new ModelInstance(soda);
+            if(i%3 == 1)
+                sodaInstance[i] = new ModelInstance(turkey);
             else
                 sodaInstance[i] = new ModelInstance(pizza);
         }

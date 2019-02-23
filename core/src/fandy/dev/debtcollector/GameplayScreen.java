@@ -665,6 +665,8 @@ public class GameplayScreen extends Listener implements Screen {
         assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
+        assets.load("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
+        assets.load("object/Turkey/turkey.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -789,9 +791,18 @@ public class GameplayScreen extends Listener implements Screen {
                 if(object instanceof TabrakSoda) {
                     TabrakSoda tc = (TabrakSoda) object;
                     int i = tc.indexCoin;
-                    randomCoin2(sodaInstance[i],modelsoda,0,i);
-                    heroes[tc.yourSide].exp += 50;
-
+                    if(i % 3 == 0) {
+                        randomCoin2(sodaInstance[i], modelsoda, 0, i);
+                        heroes[tc.yourSide].exp += 50;
+                    }
+                    else if(i % 3 == 1) {
+                        randomCoin2(sodaInstance[i], modelsoda, 0, i);
+                        heroes[tc.yourSide].exp += 100;
+                    }
+                    else{
+                        randomCoin2(sodaInstance[i], modelsoda, 2, i);
+                        heroes[tc.yourSide].exp += 75;
+                    }
                     for(int j=0;j<jmlDC;j++)KirimDataHeroes(j, debtCollector.ip[j]);
                     for(int j=0;j<jmlDM;j++)KirimDataHeroes(j+jmlDC, debtMaker.ip[j]);
 
@@ -1001,6 +1012,8 @@ public class GameplayScreen extends Listener implements Screen {
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
+        Model pizza = assets.get("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
+        Model turkey = assets.get("object/Turkey/turkey.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
@@ -1021,9 +1034,14 @@ public class GameplayScreen extends Listener implements Screen {
         }
         for(int i=0;i<coinInstance.length;i++)
             coinInstance[i] = new ModelInstance(coin);
-        for(int i=0;i<sodaInstance.length;i++)
+        for(int i=0;i<sodaInstance.length;i++) {
+            if(i%3 == 0)
             sodaInstance[i] = new ModelInstance(soda);
-
+            else if(i%3 == 1)
+                sodaInstance[i] = new ModelInstance(turkey);
+            else
+                sodaInstance[i] = new ModelInstance(pizza);
+        }
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
         warehouseInstance.transform.setTranslation(0,0,-150);
@@ -1105,7 +1123,10 @@ public class GameplayScreen extends Listener implements Screen {
             sodaObject.add(new btCollisionObject());
             sodaObject.get(i).setCollisionShape(sodaShape);
             sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
+            if(i%2 == 0)
             randomCoin2(sodaInstance[i],modelsoda,0,i);
+            else
+            randomCoin2(sodaInstance[i],modelsoda,2,i);
             instances.add(sodaInstance[i]);
         }
 
@@ -1194,11 +1215,11 @@ public class GameplayScreen extends Listener implements Screen {
                @Override
                public void run() {
                    for(int i=0;i<5;i++){
-                       coinInstance[i].transform.rotate(Vector3.Z,10);
-                       sodaInstance[i].transform.rotate(Vector3.Z,10);
+                       coinInstance[i].transform.rotate(Vector3.Z,5);
+                       sodaInstance[i].transform.rotate(Vector3.Z,5);
                    }
                }
-        }, 0 ,0.1f);
+        }, 0 ,0.05f);
 
         Timer timepicker = new Timer();
         timepicker.schedule( new com.badlogic.gdx.utils.Timer.Task(){
@@ -1693,15 +1714,25 @@ public class GameplayScreen extends Listener implements Screen {
                     positionBuilding = instancesobjSoda.get(i).transform.getTranslation(new Vector3());
                     if (collision) {
                         if (yourSide == 0) {
-                            heroes[yourIndexSide].exp += 50;
-                            labelExp.setText("Exp : " + heroes[yourIndexSide].exp);
+                            if(i%3 == 0)
+                                heroes[yourIndexSide].exp += 50;
+                            else if(i%3 == 1)
+                                heroes[yourIndexSide].exp += 100;
+                            else
+                                heroes[yourIndexSide].exp += 75;
+                                labelExp.setText("Exp : " + heroes[yourIndexSide].exp);
 
                         } else {
                             heroes[jmlDC + yourIndexSide].exp += 50;
                             labelExp.setText("Exp : " + heroes[jmlDC + yourIndexSide].exp);
 
                         }
-                        randomCoin2(sodaInstance[i], modelsoda, 0,i);
+                        if(i%3 == 0)
+                            randomCoin2(sodaInstance[i],modelsoda,0,i);
+                        else if(i%3 == 1)
+                            randomCoin2(sodaInstance[i],modelsoda,0,i);
+                        else
+                            randomCoin2(sodaInstance[i],modelsoda,2,i);
 
                         Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
                         klik.play();
