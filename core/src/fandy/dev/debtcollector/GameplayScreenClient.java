@@ -1033,8 +1033,8 @@ public class GameplayScreenClient extends Listener implements Screen {
             sodaObject.get(i).setWorldTransform(instancesobjSoda.get(i).transform);
             instances.add(sodaInstance[i]);
 
-            PosisiSoda pc = new PosisiSoda();
-            client2.sendTCP(pc);
+            PosisiSoda pc2 = new PosisiSoda();
+            client2.sendTCP(pc2);
 
         }
 
@@ -1185,7 +1185,7 @@ public class GameplayScreenClient extends Listener implements Screen {
                     Gdx.app.log("Depth ", "helo");
                     for(int indek=0;indek<5;indek++){
                         coinInstance[indek].transform.rotate(Vector3.Z,10);
-                        sodaInstance[indek].transform.rotate(Vector3.Z,10);
+                        //sodaInstance[indek].transform.rotate(Vector3.Z,10);
                     }
                 }
             };
@@ -1457,35 +1457,6 @@ public class GameplayScreenClient extends Listener implements Screen {
                     positionBuilding = instancesobjCat.get(i).transform.getTranslation(new Vector3());
                 }
                 if (!collision) {
-                    for(int i=0;i<5;i++) {
-                        collision = checkCollision(coinObject.get(i));
-                        positionBuilding = instancesobjCoin.get(i).transform.getTranslation(new Vector3());
-                        if (collision) {
-                            TabrakCoin tc = new TabrakCoin();
-                            tc.indexCoin = i;
-                            tc.x = tmp.x;
-                            tc.y = tmp.x;
-                            tc.z = tmp.x;
-                            tc.yourSide = yourRealSide;
-                            client2.sendTCP(tc);
-                            Sound klik = Gdx.audio.newSound(Gdx.files.internal("music/coinsound.wav"));
-                            klik.play();
-
-
-                            /*if (yourSide == 0) {
-                                heroes[yourIndexSide].gold += 50;
-                                labelGold.setText("Gold : " + heroes[yourIndexSide].gold);
-
-                            } else {
-                                heroes[jmlDC + yourIndexSide].gold += 50;
-                                labelGold.setText("Gold : " + heroes[jmlDC + yourIndexSide].gold);
-
-                            }*/
-                            //randomCoin(coinInstance[i], modelcoin, 3,i);
-                            //coinInstance.transform.setTranslation()
-                        }
-                    }
-                }if (!collision) {
                     for(int i=0;i<5;i++) {
                         collision = checkCollision(coinObject.get(i));
                         positionBuilding = instancesobjCoin.get(i).transform.getTranslation(new Vector3());
