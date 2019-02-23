@@ -614,6 +614,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         assets.load("object/Cat/cat.obj", Model.class);
         assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
+        assets.load("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
         loading = true;
@@ -927,6 +928,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         Model cat = assets.get("object/Cat/cat.obj", Model.class);
         Model coin = assets.get("object/MoneyBag/coin.obj", Model.class);
         Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
+        Model pizza = assets.get("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         treeInstance = new ModelInstance[6];
@@ -947,8 +949,12 @@ public class GameplayScreenClient extends Listener implements Screen {
         }
         for(int i=0;i<coinInstance.length;i++)
             coinInstance[i] = new ModelInstance(coin);
-        for(int i=0;i<sodaInstance.length;i++)
-            sodaInstance[i] = new ModelInstance(soda);
+        for(int i=0;i<sodaInstance.length;i++){
+            if(i%2 == 0)
+                sodaInstance[i] = new ModelInstance(soda);
+            else
+                sodaInstance[i] = new ModelInstance(pizza);
+        }
 
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
@@ -1184,26 +1190,26 @@ public class GameplayScreenClient extends Listener implements Screen {
                 public void run() {
                     Gdx.app.log("Depth ", "helo");
                     for(int indek=0;indek<5;indek++){
-                        coinInstance[indek].transform.rotate(Vector3.Z,10);
+                        coinInstance[indek].transform.rotate(Vector3.Z,5);
                         //sodaInstance[indek].transform.rotate(Vector3.Z,10);
                     }
                 }
             };
             java.util.Timer timer = new java.util.Timer("Timer");
 
-            timer.schedule(task, new Date(),100L);
+            timer.schedule(task, new Date(),50L);
             java.util.TimerTask task2 = new java.util.TimerTask() {
                 public void run() {
                     Gdx.app.log("Depth ", "helo");
                     for(int indek=0;indek<5;indek++){
                         //coinInstance[indek].transform.rotate(Vector3.Z,10);
-                        sodaInstance[indek].transform.rotate(Vector3.Z,10);
+                        sodaInstance[indek].transform.rotate(Vector3.Z,5);
                     }
                 }
             };
             java.util.Timer timer2 = new java.util.Timer("Timer");
 
-            timer2.schedule(task2, new Date(),100L);
+            timer2.schedule(task2, new Date(),50L);
 
         }
 
