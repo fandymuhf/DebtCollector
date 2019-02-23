@@ -954,7 +954,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         for(int i=0;i<sodaInstance.length;i++){
             if(i%3 == 0)
                 sodaInstance[i] = new ModelInstance(soda);
-            if(i%3 == 1)
+            else if(i%3 == 1)
                 sodaInstance[i] = new ModelInstance(turkey);
             else
                 sodaInstance[i] = new ModelInstance(pizza);
