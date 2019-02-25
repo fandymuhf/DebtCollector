@@ -6,7 +6,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/crt1a.jpg
+map_Kd crt1a.jpg
 
 newmtl material_1_black
 d 1
@@ -25,7 +25,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/cnt1.jpg
+map_Kd cnt1.jpg
 
 newmtl material_1_display1
 d 1
@@ -35,7 +35,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/d1.jpg
+map_Kd d1.jpg
 
 newmtl material_1_display2
 d 1
@@ -45,7 +45,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/d2.jpg
+map_Kd d2.jpg
 
 newmtl material_1_display3
 d 1
@@ -55,7 +55,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/d3.jpg
+map_Kd d3.jpg
 
 newmtl material_1_display4
 d 1
@@ -65,7 +65,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/d4.jpg
+map_Kd d4.jpg
 
 newmtl material_1_sign
 d 1
@@ -102,7 +102,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/st1.jpg
+map_Kd st1.jpg
 
 newmtl material_1_trans_green
 d 0.7
@@ -121,7 +121,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/wd1.jpg
+map_Kd wd1.jpg
 
 newmtl material_1_name
 d 1
