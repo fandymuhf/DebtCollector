@@ -677,7 +677,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         for(int i=0;i<jmlPemain;i++) {
             namePlayerInstance[i] = new ModelInstance(namePlayerModel[i]);
             namePlayerInstance[i].transform.setToTranslation(0,11f,0);
-            namePlayerInstance[i].transform.rotate(Vector3.X,90);
+            namePlayerInstance[i].transform.setToRotation(Vector3.X,90);
         }
 
         //health bar

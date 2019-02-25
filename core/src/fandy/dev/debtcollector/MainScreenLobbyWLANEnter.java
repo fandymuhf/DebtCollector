@@ -1108,7 +1108,7 @@ public class MainScreenLobbyWLANEnter implements Screen {
             if(readytostart==1f) {
                 if (Gdx.input.justTouched() && roompenuh == 0) {
                     klik.play();
-                    stage.dispose();
+                    //stage.dispose();
                     timer.instance().clear();
                     server2.removeListener(listener);
                     Timer timer = new Timer();
