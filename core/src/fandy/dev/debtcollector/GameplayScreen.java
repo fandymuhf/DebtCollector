@@ -107,6 +107,7 @@ public class GameplayScreen extends Listener implements Screen {
     public ModelInstance[] sodaInstance = new ModelInstance[5];
     private TextureAttribute textureAttributeTiles;
     public Environment environment;
+    
     private float x=10f;
     private Texture texture;
     private Sprite sprite;
