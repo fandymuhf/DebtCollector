@@ -815,6 +815,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                     heroes[realposisi].skillcurrentCD = dataHeroes.skillcurrentCD;
                     heroes[realposisi].skillmanacost = dataHeroes.skillmanacost;
                     heroes[realposisi].stunned = dataHeroes.stunned;
+                    labelGold.setText("Gold : "+heroes[realposisi].gold);
+                    labelExp.setText("Exp : "+heroes[realposisi].exp);
                 }
                 if(object instanceof PosisiCar) {
                     PosisiCar response = (PosisiCar) object;
@@ -1185,6 +1187,7 @@ public class GameplayScreenClient extends Listener implements Screen {
             if (cobas == 2) {
                 catInstance.materials.get(0).set(ColorAttribute.createDiffuse(1, 1, 1, 1.00f), blendingAttribute);
             }
+
         }
 
 
@@ -1194,18 +1197,33 @@ public class GameplayScreenClient extends Listener implements Screen {
             doneLoading();
             LoadAll = true;
 
-            java.util.TimerTask task = new java.util.TimerTask() {
+            Timer timepicker2 = new Timer();
+            Gdx.app.log("Muter","Mulai");
+            /*Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+                @Override
                 public void run() {
-                    //Gdx.app.log("Depth ", "helo");
                     for(int i=0;i<5;i++){
-                        //coinInstance[i].transform.rotate(Vector3.Z,5);
-                       sodaInstance[i].transform.rotate(Vector3.Z,5);
+                        coinInstance[i].transform.rotate(Vector3.Z,5);
+                        sodaInstance[i].transform.rotate(Vector3.Z,5);
+                        Gdx.app.log("Muter","Muter");
+                    }
+                }
+            }, 5 ,0.05f,5);*/
+
+            com.badlogic.gdx.utils.Timer.Task task = new com.badlogic.gdx.utils.Timer.Task() {
+                @Override
+                public void run() {
+                    Gdx.app.log("Depth ", "helo");
+                    for(int i=0;i<5;i++){
+                        coinInstance[i].transform.rotate(Vector3.Z,5);
+                        sodaInstance[i].transform.rotate(Vector3.Z,5);
                     }
                 }
             };
-            java.util.Timer timer = new java.util.Timer("Waktunya");
-
-            timer.schedule(task, new Date(),50);
+            //java.util.Timer timer = new java.util.Timer("Waktunya");
+            //timer.scheduleAtFixedRate(task,new Date(),50L);
+            timepicker2.scheduleTask(task,0,0.05f);
+            /*timer.schedule(task, new Date(),50);
             java.util.TimerTask task2 = new java.util.TimerTask() {
                 public void run() {
                     Gdx.app.log("Depth ", "helo");
@@ -1217,7 +1235,9 @@ public class GameplayScreenClient extends Listener implements Screen {
             };
             java.util.Timer timer2 = new java.util.Timer("Timer");
 
-            timer2.schedule(task2, new Date(),50L);
+            timer2.schedule(task2, new Date(),50L);*/
+
+
 
         }
 
@@ -1316,8 +1336,8 @@ public class GameplayScreenClient extends Listener implements Screen {
                 if(heroes[i].currentHealth>0)loadingBar[i].draw(batch, 10, 0, heroes[i].currentHealth/heroes[i].maxHealth * 80, glyphLayoutPlayerName[i].height);
                 loadingManaBarBackground[i].draw(batch, 10, 16, 80, glyphLayoutPlayerName[i].height);
                 if(heroes[i].currentMana>0)loadingManaBar[i].draw(batch, 10, 16, heroes[i].currentMana/heroes[i].maxMana * 80, glyphLayoutPlayerName[i].height);
-                labelGold.setText("Gold : "+heroes[i].gold);
-                labelExp.setText("Exp : "+heroes[i].exp);
+                //labelGold.setText("Gold : "+heroes[i].gold);
+                //labelExp.setText("Exp : "+heroes[i].exp);
                 batch.end();
                 lFbPlayerName[i].end();
             }
@@ -1565,23 +1585,24 @@ public class GameplayScreenClient extends Listener implements Screen {
                     Timer timercar = new Timer();
                     if(!taskketabrak) {
                         taskketabrak=true;
-                        timercar.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                                              @Override
-                                              public void run() {
-                                                  timercar.clear();
-                                                  ketabrakcar = false;
-                                                  if (yourSide == 0) {
-                                                      if (gerak[yourIndexSide] == 6) gerak[yourIndexSide] = 0;
-                                                      else if (gerak[yourIndexSide] == 7) gerak[yourIndexSide] = 1;
-                                                  } else {
-                                                      if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 6)
-                                                          gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
-                                                      else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 7)
-                                                          gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
-                                                  }
-                                                  taskketabrak=false;
-                                              }
-                                          }
+                        com.badlogic.gdx.utils.Timer.Task tasktabrak = new com.badlogic.gdx.utils.Timer.Task() {
+                            @Override
+                            public void run() {
+                                timercar.clear();
+                                ketabrakcar = false;
+                                if (yourSide == 0) {
+                                    if (gerak[yourIndexSide] == 6) gerak[yourIndexSide] = 0;
+                                    else if (gerak[yourIndexSide] == 7) gerak[yourIndexSide] = 1;
+                                } else {
+                                    if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 6)
+                                        gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
+                                    else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 7)
+                                        gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
+                                }
+                                taskketabrak=false;
+                            }
+                        };
+                        timercar.schedule(tasktabrak
                                 , 0.4f);
                     }
                 }else {
@@ -1608,24 +1629,25 @@ public class GameplayScreenClient extends Listener implements Screen {
                 Timer timer = new Timer();
                 if(!taskskill1char0) {
                     taskskill1char0 = true;
-                    timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                                       @Override
-                                       public void run() {
-                                           activateSkillChar0 = 0;
-                                           if (yourSide == 0) {
-                                               if (gerak[yourIndexSide] == 4) gerak[yourIndexSide] = 0;
-                                               else if (gerak[yourIndexSide] == 5) gerak[yourIndexSide] = 1;
-                                           } else {
-                                               if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 4)
-                                                   gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
-                                               else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 5)
-                                                   gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
-                                           }
-                                           timer.clear();
-                                           taskskill1char0=false;
+                    com.badlogic.gdx.utils.Timer.Task taskmulai = new com.badlogic.gdx.utils.Timer.Task() {
+                        @Override
+                        public void run() {
+                            activateSkillChar0 = 0;
+                            if (yourSide == 0) {
+                                if (gerak[yourIndexSide] == 4) gerak[yourIndexSide] = 0;
+                                else if (gerak[yourIndexSide] == 5) gerak[yourIndexSide] = 1;
+                            } else {
+                                if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 4)
+                                    gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
+                                else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 5)
+                                    gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
+                            }
+                            timer.clear();
+                            taskskill1char0=false;
 
-                                       }
-                                   }
+                        }
+                    };
+                    timer.schedule(taskmulai
                             , 1);
                 }
             }
@@ -1774,48 +1796,50 @@ public class GameplayScreenClient extends Listener implements Screen {
 
                 if(!taskattack) {
                     taskattack=true;
-                    timerattack.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                                             @Override
-                                             public void run() {
-                                                 float[] playerattackPos = new float[2];
-                                                 float[] playerenemyPos = new float[2];
-                                                 playerattackPos[0] = heroes[yourIndexSide].posisiX;
-                                                 playerattackPos[1] = heroes[yourIndexSide].posisiZ;
-                                                 if(yourSide==0)
-                                                     for(int i=0;i<jmlDM;i++){
-                                                         playerenemyPos[0] = heroes[jmlDC+i].posisiX;
-                                                         playerenemyPos[1] = heroes[jmlDC+i].posisiZ;
-                                                         if(calculateDistance(playerattackPos,playerenemyPos)<6f){
-                                                             heroes[jmlDC+i].currentHealth-=heroes[yourIndexSide].damage;
-                                                             if(heroes[jmlDC+i].currentHealth<=0)heroes[jmlDC+i].currentHealth=0;
-                                                         }
-                                                     } else for(int i=0;i<jmlDC;i++) {
-                                                     playerenemyPos[0] = heroes[i].posisiX;
-                                                     playerenemyPos[1] = heroes[i].posisiZ;
-                                                     if (calculateDistance(playerattackPos, playerenemyPos) < 6f) {
-                                                         heroes[i].currentHealth -= heroes[jmlDC + yourIndexSide].damage;
-                                                         if(heroes[i].currentHealth<=0)heroes[i].currentHealth=0;
-                                                     }
-                                                 }
-                                             }
-                                         }
+                    com.badlogic.gdx.utils.Timer.Task task3 = new com.badlogic.gdx.utils.Timer.Task() {
+                        @Override
+                        public void run() {
+                            float[] playerattackPos = new float[2];
+                            float[] playerenemyPos = new float[2];
+                            playerattackPos[0] = heroes[yourIndexSide].posisiX;
+                            playerattackPos[1] = heroes[yourIndexSide].posisiZ;
+                            if(yourSide==0)
+                                for(int i=0;i<jmlDM;i++){
+                                    playerenemyPos[0] = heroes[jmlDC+i].posisiX;
+                                    playerenemyPos[1] = heroes[jmlDC+i].posisiZ;
+                                    if(calculateDistance(playerattackPos,playerenemyPos)<6f){
+                                        heroes[jmlDC+i].currentHealth-=heroes[yourIndexSide].damage;
+                                        if(heroes[jmlDC+i].currentHealth<=0)heroes[jmlDC+i].currentHealth=0;
+                                    }
+                                } else for(int i=0;i<jmlDC;i++) {
+                                playerenemyPos[0] = heroes[i].posisiX;
+                                playerenemyPos[1] = heroes[i].posisiZ;
+                                if (calculateDistance(playerattackPos, playerenemyPos) < 6f) {
+                                    heroes[i].currentHealth -= heroes[jmlDC + yourIndexSide].damage;
+                                    if(heroes[i].currentHealth<=0)heroes[i].currentHealth=0;
+                                }
+                            }
+                        }
+                    };
+                    timerattack.schedule(task3
                             , 0.5f);
-                    timerattack.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                                             @Override
-                                             public void run() {
-                                                 if (yourSide == 0) {
-                                                     if (gerak[yourIndexSide] == 4) gerak[yourIndexSide] = 0;
-                                                     else if (gerak[yourIndexSide] == 5) gerak[yourIndexSide] = 1;
-                                                 } else {
-                                                     if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 4)
-                                                         gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
-                                                     else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 5)
-                                                         gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
-                                                 }
-                                                 KirimGerakanClient();
-                                                 taskattack=false;
-                                             }
-                                         }
+                    com.badlogic.gdx.utils.Timer.Task task2 = new com.badlogic.gdx.utils.Timer.Task() {
+                        @Override
+                        public void run() {
+                            if (yourSide == 0) {
+                                if (gerak[yourIndexSide] == 4) gerak[yourIndexSide] = 0;
+                                else if (gerak[yourIndexSide] == 5) gerak[yourIndexSide] = 1;
+                            } else {
+                                if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 4)
+                                    gerak[getLength(debtCollector.ip) + yourIndexSide] = 0;
+                                else if (gerak[getLength(debtCollector.ip) + yourIndexSide] == 5)
+                                    gerak[getLength(debtCollector.ip) + yourIndexSide] = 1;
+                            }
+                            KirimGerakanClient();
+                            taskattack=false;
+                        }
+                    };
+                    timerattack.schedule(task2
                             , 1);
                 }
                 return true;
