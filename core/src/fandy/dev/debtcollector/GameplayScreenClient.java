@@ -677,7 +677,7 @@ public class GameplayScreenClient extends Listener implements Screen {
         for(int i=0;i<jmlPemain;i++) {
             namePlayerInstance[i] = new ModelInstance(namePlayerModel[i]);
             namePlayerInstance[i].transform.setToTranslation(0,11f,0);
-            namePlayerInstance[i].transform.setToRotation(Vector3.X,90);
+            namePlayerInstance[i].transform.rotate(Vector3.X,90);
         }
 
         //health bar
@@ -1193,19 +1193,20 @@ public class GameplayScreenClient extends Listener implements Screen {
         if (loading && assets.update()){
             doneLoading();
             LoadAll = true;
+
             java.util.TimerTask task = new java.util.TimerTask() {
                 public void run() {
-                    Gdx.app.log("Depth ", "helo");
-                    for(int indek=0;indek<5;indek++){
-                        coinInstance[indek].transform.rotate(Vector3.Z,5);
-                        //sodaInstance[indek].transform.rotate(Vector3.Z,10);
+                    //Gdx.app.log("Depth ", "helo");
+                    for(int i=0;i<5;i++){
+                        //coinInstance[i].transform.rotate(Vector3.Z,5);
+                       // sodaInstance[i].transform.rotate(Vector3.Z,5);
                     }
                 }
             };
-            java.util.Timer timer = new java.util.Timer("Timer");
+            java.util.Timer timer = new java.util.Timer("Waktunya");
 
-            timer.schedule(task, new Date(),50L);
-            java.util.TimerTask task2 = new java.util.TimerTask() {
+            timer.schedule(task, new Date(),50);
+            /*java.util.TimerTask task2 = new java.util.TimerTask() {
                 public void run() {
                     Gdx.app.log("Depth ", "helo");
                     for(int indek=0;indek<5;indek++){
@@ -1216,7 +1217,7 @@ public class GameplayScreenClient extends Listener implements Screen {
             };
             java.util.Timer timer2 = new java.util.Timer("Timer");
 
-            timer2.schedule(task2, new Date(),50L);
+            timer2.schedule(task2, new Date(),50L);*/
 
         }
 
