@@ -671,7 +671,8 @@ public class GameplayScreen extends Listener implements Screen {
         assets.load("object/MoneyBag/coin.obj", Model.class);
         assets.load("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         assets.load("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
-        assets.load("object/Coffee Shop/Coffee Shop.obj", Model.class);
+        //assets.load("object/NewsStand/NewsStand.obj", Model.class);
+        //assets.load("object/Gerobak/balandongan.obj", Model.class);
         assets.load("object/Turkey/turkey.obj", Model.class);
         assets.load("object/love/loveintan.obj", Model.class);
         assets.load("object/love/intan.obj", Model.class);
@@ -1020,7 +1021,8 @@ public class GameplayScreen extends Listener implements Screen {
         Model soda = assets.get("object/Soda_Can/14025_Soda_Can_v3_l3.obj", Model.class);
         Model pizza = assets.get("object/Plate_Pizza/13917_Pepperoni_v2_l23.obj", Model.class);
         Model turkey = assets.get("object/Turkey/turkey.obj", Model.class);
-        Model newstand = assets.get("object/Coffee Shop/Coffee Shop.obj", Model.class);
+        //Model newstand = assets.get("object/NewsStand/NewsStand.obj", Model.class);
+        //Model gerobak = assets.get("object/Gerobak/balandongan.obj", Model.class);
         Model love2 = assets.get("object/love/loveintan.obj", Model.class);
         Model love = assets.get("object/love/intan.obj", Model.class);
         ModelInstance carInstance = new ModelInstance(car);
@@ -1028,7 +1030,8 @@ public class GameplayScreen extends Listener implements Screen {
         catInstance = new ModelInstance(cat);
         loveInstance = new ModelInstance(love);
         loveInstance2 = new ModelInstance(love2);
-        newstandInstance = new ModelInstance(newstand);
+        //newstandInstance = new ModelInstance(newstand);
+        //gerobakInstance = new ModelInstance(gerobak);
         ModelInstance[] HouseInstance = new ModelInstance[6];
         for(int i=0;i<HouseInstance.length;i++)
             HouseInstance[i] = new ModelInstance(house);
@@ -1050,10 +1053,13 @@ public class GameplayScreen extends Listener implements Screen {
             else
                 sodaInstance[i] = new ModelInstance(pizza);
         }
-        newstandInstance.transform.setToScaling(10,10,10);
-        newstandInstance.transform.rotate(Vector3.Y,0);
-        newstandInstance.transform.setTranslation(0,0,60);
+        //newstandInstance.transform.setToScaling(10,10,10);
+        //newstandInstance.transform.rotate(Vector3.Y,0);
+        //newstandInstance.transform.setTranslation(0,0,60);
 
+        //gerobakInstance.transform.setToScaling(10,10,10);
+        //gerobakInstance.transform.rotate(Vector3.Y,0);
+        //gerobakInstance.transform.setTranslation(20,0,60);
 
         warehouseInstance.transform.setToScaling(5,5,5);
         warehouseInstance.transform.rotate(Vector3.Y,90);
@@ -1078,7 +1084,8 @@ public class GameplayScreen extends Listener implements Screen {
         carInstance.transform.setTranslation(0,1,60);
         instances.add(warehouseInstance);
         instances.add(carInstance);
-        instances.add(newstandInstance);
+        //instances.add(newstandInstance);
+        //instances.add(gerobakInstance);
         ModelBuilder modelBuilder = new ModelBuilder();
         modeltree = modelBuilder.createBox(5f, 5f, 5f,
                 new Material(ColorAttribute.createDiffuse(1,1,1,0.0f),blendingAttribute),
