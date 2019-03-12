@@ -13,7 +13,16 @@ launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
 robovm {
-	archs = "arm64"
+    arch = "arm64"
+    iosSignIdentity = "F1F09A790480C9CD2272BB787B881AF6D78097AB"
+        //To find iosSignIdentity, run this in terminal: security find-identity -v -p codesigning
+
+    iosProvisioningProfile = "fajarmuhf@gmail.com"
+        //The simple name of the profile. Look in Xcode preferences->accounts.
+
+    iosSkipSigning = false
+    stdoutFifo = null
+    stderrFifo = null
 }
 
 eclipse.project {
